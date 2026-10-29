@@ -2,7 +2,7 @@
 title: LAÇO garden
 description: The knowledge garden of LAÇO, free live coding meetups at Concordia University (Montréal). Notes, live sketches and links from every meetup.
 # Where the garden is published. Change it if it moves to a custom domain.
-url: https://uandhafb.github.io/code-to-share/
+url: https://uandhafb.github.io/code-to-share-knowledge-garden/
 # Uncomment to publish on a custom domain (also set `url` above).
 # domain: garden.codetoshare.org
 main_site: https://laco.codetoshare.org
