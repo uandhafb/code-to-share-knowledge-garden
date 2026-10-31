@@ -610,10 +610,11 @@ function renderMeetup(page) {
     main: `<article class="panel">
 <p class="kicker"><span class="label">${meetupLabel(page)}</span></p>
 <h1>${page.titleHtml}</h1>
-<dl class="facts">
-<dt>When</dt><dd>${escapeHtml(d.date || "")}</dd>
-<dt>Where</dt><dd>${mdInline(page, d.venue || "")}</dd>
-</dl>
+${(d.intro_links || []).map((link) => `<p>${mdInline(page, link)}</p>`).join("\n")}
+${d.date || d.venue ? `<dl class="facts">
+${d.date ? `<dt>When</dt><dd>${escapeHtml(d.date)}</dd>` : ""}
+${d.venue ? `<dt>Where</dt><dd>${mdInline(page, d.venue)}</dd>` : ""}
+</dl>` : ""}
 ${trail.length ? `<p><button type="button" class="present-start" data-present-from="0">Present <kbd>P</kbd></button> <span class="muted">Every step of the meetup becomes a full-screen slide with live code.</span></p>` : ""}
 ${md(page, page.body, { autorun: false })}
 </article>`,
