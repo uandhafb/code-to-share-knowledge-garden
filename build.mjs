@@ -522,9 +522,6 @@ function layout(page, main, { extra = "" } = {}) {
 </details>
 <button type="button" id="weather-resume" hidden>Show weather background</button>
 </section>
-<div class="controls">
-<button type="button" id="hide-text" aria-pressed="false">Hide text</button>
-</div>
 </header>
 <div class="column">
 <main id="main" class="page">
@@ -559,11 +556,11 @@ const scatter = (s) => {
 };
 
 function filtersHtml(tags, { label = "Filter", topics = [] } = {}) {
-  const buttons = (items) => items.map(([value, text]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false">${escapeHtml(text)}</button>`).join("\n");
+  const buttons = (items) => items.map(([value, text]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false"${value === "visuals" && topics.length ? ' aria-controls="hydra-topics" aria-expanded="false"' : ""}>${escapeHtml(text)}</button>`).join("\n");
   return `<div class="filters" role="group" aria-label="${escapeHtml(label)}">
 <button type="button" data-filter="all" aria-pressed="true">all</button>
 ${buttons(tags)}
-${topics.length ? `<div class="filter-topics"><span class="filter-label">hydra topics</span>${buttons(topics)}</div>` : ""}
+${topics.length ? `<div class="filter-topics" id="hydra-topics" role="group" aria-label="hydra topics" hidden><span class="filter-label">hydra topics</span>${buttons(topics)}</div>` : ""}
 </div>`;
 }
 

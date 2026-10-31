@@ -7,6 +7,7 @@
   --card-2: #f3f7ed;
   --ink: #000;
   --green: #244f32;
+  --green-dark: #173b23;
   --muted: #444;
   --line: #000;
   --soft-line: rgba(0, 0, 0, 0.18);
@@ -20,6 +21,7 @@
 }
 
 * { box-sizing: border-box; }
+::selection { background: var(--green); color: var(--card); }
 
 html {
   background: var(--bg);
@@ -47,7 +49,7 @@ body {
 
 a { color: var(--ink); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
 a:hover { text-decoration-thickness: 3px; }
-:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
 
 code, kbd, pre, textarea, input, button { font-family: var(--font); }
 code { font-size: 0.95em; background: rgba(0, 0, 0, 0.08); padding: 0.05em 0.25em; }
@@ -110,7 +112,7 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
   line-height: 1.5;
   text-decoration: none;
 }
-.brand:hover { background: #173b23; }
+.brand:hover { background: var(--green-dark); }
 .brand-name, .brand-subtitle { display: block; }
 .side-text { font-size: 1.0625rem; line-height: 1.5; margin: 0.875rem 0 1rem; }
 
@@ -119,13 +121,11 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
 .nav-meetups { display: flex; flex-wrap: wrap; gap: 0.375rem 0.875rem; }
 .nav-resources { border-top: 1px solid var(--soft-line); padding-top: 1rem; }
 .nav a { padding: 0 3px; }
-.nav a[aria-current="page"] { background: var(--ink); color: var(--card); text-decoration: none; }
+.nav a[aria-current="page"] { background: var(--green); color: var(--card); border-color: var(--green); text-decoration: none; }
 .series-title { display: block; margin: 0 0 0.25rem; padding: 0; color: var(--ink); background: none; font-size: 1.5rem; line-height: 1.2; }
 .series-title span { display: block; margin-top: 0.35rem; font-size: 0.9375rem; font-weight: 400; line-height: 1.5; }
 .nav .nav-meetups a { display: inline-flex; align-items: center; justify-content: center; min-width: 2.5rem; min-height: 2.5rem; padding: 0.3rem 0.5rem; border: 1px solid var(--ink); font-weight: 700; text-decoration: none; }
-.nav .nav-meetups a:hover { background: var(--ink); color: var(--card); }
-
-.controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.125rem; padding-top: 1rem; border-top: 1px solid var(--soft-line); }
+.nav .nav-meetups a:hover { background: var(--green); color: var(--card); border-color: var(--green); }
 
 button {
   font-size: 0.9375rem;
@@ -136,8 +136,8 @@ button {
   padding: 0.375rem 0.75rem;
   cursor: pointer;
 }
-button:hover { background: var(--ink); color: var(--card); }
-button[aria-pressed="true"] { background: var(--ink); color: var(--card); }
+button:hover { background: var(--green); color: var(--card); border-color: var(--green); }
+button[aria-pressed="true"] { background: var(--green); color: var(--card); border-color: var(--green); }
 
 /* ---------- Place and weather ---------- */
 
@@ -170,7 +170,7 @@ h1 code { font-size: 1em; background: none; padding: 0; }
 h2 {
   display: table;
   font-size: 1.1875rem;
-  background: var(--ink);
+  background: var(--green);
   color: var(--card);
   padding: 0.15em 0.45em;
   margin: 2em 0 0.8em;
@@ -184,7 +184,7 @@ h3 { font-size: 1.25rem; margin: 1.6em 0 0.4em; }
   display: inline-block;
   font-size: 0.875rem;
   line-height: 1.2;
-  background: var(--ink);
+  background: var(--green);
   color: var(--card);
   padding: 0.2em 0.5em;
 }
@@ -201,7 +201,7 @@ h3 { font-size: 1.25rem; margin: 1.6em 0 0.4em; }
   padding: 0 0.4em;
 }
 .tag-type, .tag-source, .tag-geometry, .tag-color, .tag-blend, .tag-modulate, .tag-patterns, .tag-output {
-  background: var(--ink);
+  background: var(--green);
   color: var(--card);
 }
 
@@ -261,8 +261,8 @@ pre.code code { background: none; padding: 0; }
   padding: 0.5rem 0 0;
   font-size: 0.875rem;
 }
-.sketch-run { background: var(--ink); color: var(--card); font-weight: 700; }
-.sketch-run:hover { background: transparent; color: var(--ink); }
+.sketch-run { background: var(--green); color: var(--card); border-color: var(--green); font-weight: 700; }
+.sketch-run:hover { background: var(--green-dark); color: var(--card); }
 .sketch-hint { color: var(--muted); }
 .sketch-state { margin-left: auto; font-weight: 700; }
 .sketch.is-active .sketch-state::before { content: "● "; }
@@ -285,8 +285,9 @@ pre.code code { background: none; padding: 0; }
 .filters button:hover, .filters button[aria-pressed="true"] { background: var(--green); color: var(--card); }
 .filters button[aria-pressed="true"] { text-decoration: none; }
 .panel .filters { font-size: 1.0625rem; }
-.kind-home .filters { width: fit-content; max-width: 100%; padding: 0.75rem 1rem; background: var(--card); box-shadow: var(--shadow); }
+.kind-home .filters { position: relative; z-index: 3; width: fit-content; max-width: 100%; padding: 0.75rem 1rem; background: var(--card); box-shadow: var(--shadow); }
 .filter-topics { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; margin-top: 0.5rem; font-size: 0.9375rem; }
+.filter-topics[hidden] { display: none; }
 .filter-label { color: var(--muted); margin-right: 0.25rem; }
 
 /* ---------- The garden of cards (home page) ---------- */
@@ -347,12 +348,10 @@ pre.code code { background: none; padding: 0; }
 
 /* ---------- Present button ---------- */
 
-.present-start { background: var(--ink); color: var(--card); font-weight: 700; font-size: 1.0625rem; padding: 0.5rem 1rem; }
-.present-start:hover { background: transparent; color: var(--ink); }
+.present-start { background: var(--green); color: var(--card); border-color: var(--green); font-weight: 700; font-size: 1.0625rem; padding: 0.5rem 1rem; }
+.present-start:hover { background: var(--green-dark); color: var(--card); }
 
-/* ---------- Hide text / present mode ---------- */
-
-body.text-hidden .page { visibility: hidden; }
+/* ---------- Present mode ---------- */
 
 body.presenting .shell { display: none; }
 
@@ -395,7 +394,7 @@ body.presenting .shell { display: none; }
 
 .present-nav { display: flex; gap: 0.5rem; align-self: flex-end; margin-top: 0.625rem; }
 .present-nav button { background: var(--card); box-shadow: var(--shadow); font-size: 22px; padding: 6px 18px; border: 0; }
-.present-nav button:hover { background: var(--ink); color: var(--card); }
+.present-nav button:hover { background: var(--green); color: var(--card); }
 
 /* ---------- Smaller screens ---------- */
 

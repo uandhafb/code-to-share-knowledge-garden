@@ -1,11 +1,10 @@
 // LAÇO garden runtime: one shared Hydra canvas per page, live code boxes,
-// reduced motion / hide text, the links filter, and present mode on meetup pages.
+// reduced motion, filters, and present mode on meetup pages.
 // Never asks for the camera or the microphone.
 (() => {
   "use strict";
 
   const canvas = document.getElementById("hydra-canvas");
-  const hideButton = document.getElementById("hide-text");
 
   // ---------- Hydra ----------
 
@@ -235,7 +234,7 @@
     }, 150);
   });
 
-  // ---------- Reduced motion / hide text ----------
+  // ---------- Reduced motion ----------
 
   function setPaused(value) {
     paused = value;
@@ -245,12 +244,6 @@
   const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
   setPaused(motionPreference.matches);
   motionPreference.addEventListener("change", (event) => setPaused(event.matches));
-
-  hideButton.addEventListener("click", () => {
-    const hidden = document.body.classList.toggle("text-hidden");
-    hideButton.setAttribute("aria-pressed", String(hidden));
-    hideButton.textContent = hidden ? "Show text" : "Hide text";
-  });
 
   // ---------- Code boxes ----------
 
@@ -294,14 +287,32 @@
 
   const filters = document.querySelector(".filters");
   if (filters) {
+    const topics = filters.querySelector(".filter-topics");
+    const primaryButtons = filters.querySelectorAll(":scope > button");
+    const visualsButton = filters.querySelector('button[data-filter="visuals"]');
+    let primaryValue = "all";
+    let topicValue = null;
     filters.addEventListener("click", (e) => {
       const button = e.target.closest("button[data-filter]");
       if (!button) return;
       const value = button.dataset.filter;
-      filters.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      if (topics?.contains(button)) {
+        topicValue = value;
+        topics.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      } else {
+        primaryValue = value;
+        topicValue = null;
+        primaryButtons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+        if (topics) {
+          topics.hidden = value !== "visuals";
+          visualsButton?.setAttribute("aria-expanded", String(!topics.hidden));
+          topics.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", "false"));
+        }
+      }
       let visible = 0;
       document.querySelectorAll(".page [data-tags]").forEach((card) => {
-        card.hidden = value !== "all" && !card.dataset.tags.split(" ").includes(value);
+        const tags = card.dataset.tags.split(" ");
+        card.hidden = (primaryValue !== "all" && !tags.includes(primaryValue)) || (topicValue !== null && !tags.includes(topicValue));
         if (!card.hidden) visible++;
       });
       const empty = document.querySelector(".garden-empty");
