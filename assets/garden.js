@@ -1,21 +1,11 @@
 // LAÇO garden runtime: one shared Hydra canvas per page, live code boxes,
-// pause / hide text, the links filter, and present mode on meetup pages.
+// reduced motion / hide text, the links filter, and present mode on meetup pages.
 // Never asks for the camera or the microphone.
 (() => {
   "use strict";
 
   const canvas = document.getElementById("hydra-canvas");
-  const pauseButton = document.getElementById("pause-visuals");
   const hideButton = document.getElementById("hide-text");
-
-  const store = {
-    get(key) {
-      try { return localStorage.getItem(key); } catch { return null; }
-    },
-    set(key, value) {
-      try { localStorage.setItem(key, value); } catch { /* private mode: fine */ }
-    },
-  };
 
   // ---------- Hydra ----------
 
@@ -245,20 +235,16 @@
     }, 150);
   });
 
-  // ---------- Pause visuals / hide text ----------
+  // ---------- Reduced motion / hide text ----------
 
-  function setPaused(value, remember) {
+  function setPaused(value) {
     paused = value;
-    pauseButton.setAttribute("aria-pressed", String(paused));
-    pauseButton.textContent = paused ? "Play visuals" : "Pause visuals";
     if (activeBox) setState(activeBox, paused ? "on screen · paused" : "on screen");
-    if (remember) store.set("laco-garden-paused", paused ? "1" : "0");
   }
 
-  const savedPause = store.get("laco-garden-paused");
-  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  setPaused(savedPause === null ? reduceMotion : savedPause === "1", false);
-  pauseButton.addEventListener("click", () => setPaused(!paused, true));
+  const motionPreference = matchMedia("(prefers-reduced-motion: reduce)");
+  setPaused(motionPreference.matches);
+  motionPreference.addEventListener("change", (event) => setPaused(event.matches));
 
   hideButton.addEventListener("click", () => {
     const hidden = document.body.classList.toggle("text-hidden");

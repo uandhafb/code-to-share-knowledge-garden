@@ -501,7 +501,7 @@ function layout(page, main, { extra = "" } = {}) {
 </div>
 </nav>
 <section class="weather" aria-labelledby="weather-heading">
-<h2 id="weather-heading">Weather background</h2>
+<h2 id="weather-heading">The background changes with the weather and time</h2>
 <p class="weather-place" id="weather-place">Montréal, Canada</p>
 <p class="weather-time"><time id="weather-clock"></time><span id="weather-phase"></span></p>
 <p id="weather-status" role="status">Loading weather…</p>
@@ -519,7 +519,6 @@ function layout(page, main, { extra = "" } = {}) {
 <p class="weather-credit">Data: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a></p>
 </section>
 <div class="controls">
-<button type="button" id="pause-visuals" aria-pressed="false">Pause visuals</button>
 <button type="button" id="hide-text" aria-pressed="false">Hide text</button>
 </div>
 </header>
@@ -680,10 +679,9 @@ ${next ? `<a rel="next" href="${href(page, next)}">${next.titleHtml} →</a>` : 
 }
 
 function renderLinks(page) {
-  const tags = [...new Set([...links.map((l) => l.type), ...links.map((l) => l.tool)].filter(Boolean))];
+  const tags = ["hydra", "strudel", "toplap"];
   return `<article class="panel">
 <h1>Links</h1>
-<p class="lede">${mdInline(page, site.links_intro)}</p>
 ${filtersHtml(tags.map((tag) => [tag, tag]))}
 ${linkCards(page, links)}
 </article>`;

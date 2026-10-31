@@ -28,7 +28,7 @@ Run `node build.mjs` again after each change. It lists any broken garden link an
 | `tools/thumbnails.cjs` | takes those pictures |
 | `content/links.yml` | the curated links |
 | `content/home.md`, `content/site.yml` | the home page (the garden of cards), and settings shared by every page |
-| `assets/garden.js` | live sketches, pause, present mode, links filter |
+| `assets/garden.js` | live sketches, reduced motion, present mode, links filter |
 | `assets/weather.js` | city search, local time, weather data, and the ambient palette |
 | `assets/garden.css` | the look |
 | `build.mjs` | turns `content/` into `_site/` (no dependencies) |
@@ -86,6 +86,8 @@ Add an entry to `content/links.yml`:
   note: Interactive list of every Hydra function.
 ```
 
+The Links page filters resources by **all**, **hydra**, **strudel**, or **toplap**. Set each entry's `tool` to the matching group.
+
 The home page keeps the meetup and site navigation in the information card, with all notes and links in the garden. Its main filters are **sound**, **images**, and **web-based**, followed by the Hydra topics. Hydra entries default to images and Strudel entries to sound; runnable browser sketches and browser tools also appear under web-based. An entry can belong to more than one filter.
 
 Add an optional `tags: [interactive]` list to a note's header or a link entry to introduce another browsing filter. New tags appear automatically on the home page.
@@ -114,7 +116,7 @@ The slide number stays in the URL (`?present=5`), so a refresh keeps your place.
 - The engine is `hydra-synth@1.4.0` from unpkg, pinned with an integrity hash (the same as the main LAÇO site). To upgrade, change the version in `build.mjs` and update the hash.
 - Before each run: `hush()`, the LAÇO title is loaded into `s0`, `render(o0)`, then the code runs. Errors show under the code box in plain words.
 - No camera or microphone, ever: no `initCam()`, no audio detection.
-- **Pause visuals** stops the animation (remembered per browser). People who ask their system for reduced motion start paused.
+- People who ask their system for reduced motion see still visuals. Changes to that system preference also apply while the page is open.
 
 ## Weather background
 
@@ -122,7 +124,7 @@ The ambient background follows **Montréal** until a visitor chooses another cit
 
 Weather and sunrise/sunset data come from [Open-Meteo](https://open-meteo.com/en/docs); city search uses its [geocoding API](https://open-meteo.com/en/docs/geocoding-api), based on GeoNames. Conditions are refreshed every 15 minutes while the page is visible and cached between page visits. If the service is unavailable, the background uses saved weather for up to a day, then local clock time, and displays its fallback status.
 
-Running a sketch takes over the canvas. Weather updates leave that sketch alone. **Show weather background** returns to the ambient visuals, and exiting presentation mode also returns to them. Pause and reduced-motion preferences apply to both modes.
+Running a sketch takes over the canvas. Weather updates leave that sketch alone. **Show weather background** returns to the ambient visuals, and exiting presentation mode also returns to them. The system's reduced-motion preference applies to both modes.
 
 Check the time-zone and weather mappings with `node --test tests/weather.test.cjs`.
 

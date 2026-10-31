@@ -1,4 +1,4 @@
 ---
 title: "< Code to Share > {Knowledge Garden}"
-summary: Notes from < Code to Share > meetups, plus information and links about live coding.
+summary: Notes from the meetups, plus information and links about live coding.
 ---

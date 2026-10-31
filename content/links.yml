@@ -1,130 +1,44 @@
-# Curated links. Each entry needs a title and a url.
-# type: docs | tutorial | talk | interview | artist | project | tool
-# tool: hydra | strudel     level: all | beginner | intermediate | advanced
+# Curated resources, grouped by Hydra, Strudel, and TOPLAP.
 # meetups: the meetups that use this link, e.g. [1] or [1, 3]
-- title: Hydra editor
-  url: https://hydra.ojack.xyz
+- title: TOPLAP
+  url: https://blog.toplap.org/
+  tool: toplap
+  type: project
+  meetups: [1]
+  note: News, events, and resources from the live coding community.
+- title: "Live Coding: A User's Manual"
+  url: https://livecodingbook.toplap.org/
+  tool: toplap
+  type: docs
+  meetups: [1]
+  note: An open-access book about the practice, history, and culture of live coding.
+- title: Getting started with Strudel
+  url: https://strudel.cc/workshop/getting-started/
+  tool: strudel
+  type: tutorial
+  meetups: [1]
+  note: Start learning to make music with code in Strudel.
+- title: Strudel
+  url: https://strudel.cc/
+  tool: strudel
+  type: tool
+  meetups: [1]
+  note: Live code music in the browser.
+- title: Hydra example
+  url: https://hydra.ojack.xyz/?sketch_id=example_4
   tool: hydra
   type: tool
-  level: all
   meetups: [1]
-  note: Live code Hydra in the browser, with examples to remix.
-- title: Hydra documentation
-  url: https://hydra.ojack.xyz/docs/
-  tool: hydra
-  type: docs
-  level: beginner
-  meetups: [1]
-  note: Getting started, guides and concepts.
+  note: Open a Hydra example and experiment with its code.
 - title: Hydra function reference
   url: https://hydra.ojack.xyz/api/
   tool: hydra
   type: docs
-  level: all
   meetups: [1]
-  note: Interactive list of every Hydra function.
-- title: Hydra garden
-  url: https://hydra.ojack.xyz/garden/
-  tool: hydra
-  type: project
-  level: all
-  meetups: [1]
-  note: The community database of Hydra projects and tutorials.
-- title: Hydra source code
-  url: https://github.com/hydra-synth/hydra
-  tool: hydra
-  type: project
-  level: advanced
-  meetups: [1]
-  note: The Hydra editor on GitHub.
-- title: hydra-synth
-  url: https://github.com/hydra-synth/hydra-synth
-  tool: hydra
-  type: project
-  level: advanced
-  meetups: [1]
-  note: The synth engine as an npm module. This garden uses it to run the sketches.
-- title: Hydra extensions
-  url: https://github.com/hydra-synth/hydra-extensions
-  tool: hydra
-  type: project
-  level: intermediate
-  meetups: [1]
-  note: Community extensions for Hydra.
-- title: Olivia Jack's website
-  url: https://ojack.xyz
-  tool: hydra
-  type: artist
-  level: all
-  meetups: [1]
-  note: The creator of Hydra.
-- title: Olivia Jack on GitHub
-  url: https://github.com/ojack
-  tool: hydra
-  type: artist
-  level: all
-  meetups: [1]
-  note: Her open-source projects.
-- title: PIXELSYNTH
-  url: https://github.com/ojack/PIXELSYNTH
-  tool: hydra
-  type: project
-  level: all
-  meetups: [1]
-  note: A browser-based synth by Olivia Jack.
-- title: LiveLab
-  url: https://github.com/ojack/LiveLab
-  tool: hydra
-  type: project
-  level: all
-  meetups: [1]
-  note: A browser-based creative tool by Olivia Jack.
-- title: ghost-map
-  url: https://github.com/ojack/ghost-map
-  tool: hydra
-  type: project
-  level: all
-  meetups: [1]
-  note: Generative, temporary street maps drawn in the browser, by Olivia Jack.
-- title: Support Hydra on Open Collective
-  url: https://opencollective.com/hydra-synth
-  tool: hydra
-  type: project
-  level: all
-  meetups: [1]
-  note: Hydra is supported by its community.
-- title: Why Hydra was made
-  url: https://www.youtube.com/watch?v=cw7tPDrFIQg
-  tool: hydra
-  type: talk
-  level: all
-  meetups: [1]
-  note: A talk about the reasons behind Hydra.
-- title: Interview with Olivia Jack (CDM, 2019)
-  url: https://cdm.link/hydra-olivia-jack/
-  tool: hydra
-  type: interview
-  level: all
-  meetups: [1]
-  note: Olivia Jack on Hydra and live coding.
-- title: Art && Code podcast (AMT Lab)
-  url: https://amt-lab.org/podcasts-interviews/2024/1/ch0x7excs2gxyar21qnykbotwmcpax
-  tool: hydra
-  type: interview
-  level: all
-  meetups: [1]
-  note: A podcast episode with Olivia Jack.
-- title: CODEX HYDRA (PDF, in Spanish)
-  url: https://github.com/ojack/hydra/blob/master/docs/CODEX%20HYDRA.pdf
+  note: Browse Hydra's functions and their parameters.
+- title: Hydra Book
+  url: https://hydra-book.glitches.me/#/
   tool: hydra
   type: tutorial
-  level: beginner
   meetups: [1]
-  note: A getting-started guide in Spanish.
-- title: Strudel
-  url: https://strudel.cc
-  tool: strudel
-  type: tool
-  level: all
-  meetups: [1]
-  note: Live code music in the browser. Notes about Strudel are coming soon.
+  note: A guide to Hydra and live-coded visuals.
