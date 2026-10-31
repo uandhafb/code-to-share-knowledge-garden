@@ -27,6 +27,7 @@ Run `node build.mjs` again after each change. It lists any broken garden link an
 | `assets/thumbs/` | the pictures on the garden cards, one per note (see below) |
 | `tools/thumbnails.cjs` | takes those pictures |
 | `content/links.yml` | the curated links |
+| `content/about.md` | the introduction and usage guide in the left information card |
 | `content/home.md`, `content/site.yml` | the home page (the garden of cards), and settings shared by every page |
 | `assets/garden.js` | live sketches, pause, present mode, links filter |
 | `assets/garden.css` | the look |
@@ -84,6 +85,10 @@ Add an entry to `content/links.yml`:
   meetups: [1]          # the meetups that use it (shown on those meetup pages)
   note: Interactive list of every Hydra function.
 ```
+
+The home page keeps the meetup and site navigation in the information card, with all notes and links in the garden. Its main filters are **sound**, **images**, and **web-based**, followed by the Hydra topics. Hydra entries default to images and Strudel entries to sound; runnable browser sketches and browser tools also appear under web-based. An entry can belong to more than one filter.
+
+Add an optional `tags: [interactive]` list to a note's header or a link entry to introduce another browsing filter. New tags appear automatically on the home page.
 
 ## Meetup pages and present mode
 

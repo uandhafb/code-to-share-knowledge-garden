@@ -231,6 +231,7 @@ function sketchHtml(code, { autorun = false } = {}) {
 
 const site = parseYaml(fs.readFileSync(path.join(CONTENT, "site.yml"), "utf8"), "content/site.yml");
 const links = parseYaml(fs.readFileSync(path.join(CONTENT, "links.yml"), "utf8"), "content/links.yml");
+const about = readSource(path.join(CONTENT, "about.md"));
 
 const pages = new Map();
 const looksLikeCode = (title) => /^\.?[a-z]\w*(\(\))?$/.test(title);
@@ -460,17 +461,14 @@ const presentOverlay = `<div class="present" id="present" hidden>
 
 // ---------- Page layout ----------
 
-const NAV = [...meetups.map((m) => [m.key, `#${m.number}`, meetupLabel(m)]), ["links", "Links"]];
-
 const section = (page) => homeMeetup(page)?.key || page.key;
 
 function layout(page, main, { extra = "" } = {}) {
   const title = page.key === "home" ? site.title : `${stripTags(page.titleHtml)} · ${site.title}`;
   const description = page.summary || site.description;
-  const nav = NAV.map(([key, label, name]) => {
-    const current = section(page) === key ? ' aria-current="page"' : "";
-    const aria = name ? ` aria-label="${escapeHtml(name)}"` : "";
-    return `<a href="${href(page, pages.get(key))}"${current}${aria}>${label}</a>`;
+  const nav = meetups.map((meetup) => {
+    const current = section(page) === meetup.key ? ' aria-current="page"' : "";
+    return `<a href="${href(page, meetup)}"${current} aria-label="${escapeHtml(meetupLabel(meetup))}">#${meetup.number}</a>`;
   }).join("");
   return `<!doctype html>
 <html lang="en">
@@ -493,8 +491,18 @@ function layout(page, main, { extra = "" } = {}) {
 <div class="shell">
 <header class="side">
 <a class="brand" href="${href(page, pages.get("home"))}">LAÇO garden</a>
+<div class="side-intro">
 <p class="side-text">${mdInline(page, site.tagline)}</p>
-<nav class="nav" aria-label="Garden"><span class="nav-label">meetups</span>${nav}<a href="${escapeHtml(site.main_site)}" target="_blank" rel="noopener">LAÇO site ↗</a></nav>
+<p class="side-text">${mdInline(page, about.data.summary)}</p>
+<details class="side-about"><summary>How to use this garden</summary>${md(page, about.body, { autorun: false })}</details>
+</div>
+<nav class="nav" aria-label="Garden">
+<div class="nav-group"><span class="nav-label">Meetups</span><div class="nav-meetups">${nav}</div></div>
+<div class="nav-group nav-resources">
+<a href="${href(page, pages.get("links"))}"${page.key === "links" ? ' aria-current="page"' : ""}>Links</a>
+<a href="${escapeHtml(site.main_site)}" target="_blank" rel="noopener">LAÇO site ↗</a>
+</div>
+</nav>
 <div class="controls">
 <button type="button" id="pause-visuals" aria-pressed="false">Pause visuals</button>
 <button type="button" id="hide-text" aria-pressed="false">Hide text</button>
@@ -535,11 +543,23 @@ const scatter = (s) => {
   return `--x:${((h % 13) - 6) / 8}rem;--y:${(((h >> 4) % 17) - 8) / 4}rem`;
 };
 
-function filtersHtml(tags) {
-  return `<div class="filters" role="group" aria-label="Filter">
+function filtersHtml(tags, { label = "Filter", topics = [] } = {}) {
+  const buttons = (items) => items.map(([value, text]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false">${escapeHtml(text)}</button>`).join("\n");
+  return `<div class="filters" role="group" aria-label="${escapeHtml(label)}">
 <button type="button" data-filter="all" aria-pressed="true">all</button>
-${tags.map(([value, label]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false">${escapeHtml(label)}</button>`).join("\n")}
+${buttons(tags)}
+${topics.length ? `<div class="filter-topics"><span class="filter-label">Hydra topics</span>${buttons(topics)}</div>` : ""}
 </div>`;
+}
+
+// Tools supply sensible defaults; an entry can add its own browsing tags.
+// Web-based means an example or tool that can be run in the browser.
+function browseTags(data, tool = data.tool, sketch = false) {
+  const tags = Array.isArray(data.tags) ? [...data.tags] : [];
+  const medium = { hydra: "images", strudel: "sound" }[tool];
+  if (medium) tags.push(medium);
+  if (sketch || (medium && data.type === "tool")) tags.push("web-based");
+  return [...new Set(tags)];
 }
 
 function noteCard(page, note) {
@@ -547,24 +567,25 @@ function noteCard(page, note) {
   const img = fs.existsSync(path.join(ROOT, "assets", thumb))
     ? `<img src="${"../".repeat(depth(page.url))}assets/${thumb}" alt="" width="480" height="300" loading="lazy">`
     : `<span class="g-noimg" aria-hidden="true"></span>`;
-  return `<li class="g-card g-${escapeHtml(note.data.category)}" data-tags="${note.tool} ${escapeHtml(note.data.category)}" style="${scatter(note.key)}">
+  const tags = [note.tool, note.data.category, ...browseTags(note.data, note.tool, Boolean(note.firstSketch))];
+  return `<li class="g-card g-${escapeHtml(note.data.category)}" data-tags="${escapeHtml(tags.join(" "))}" style="${scatter(note.key)}">
 <a href="${href(page, note)}">${img}<span class="g-title">${note.titleHtml}</span><span class="g-text">${mdInline(page, note.summary)}</span></a></li>`;
-}
-
-function meetupCards(page) {
-  return `<ul class="meetup-cards">${meetups
-    .map((m) => `<li><a href="${href(page, m)}"><span class="m-num">#${m.number}</span><span class="m-title">${m.titleHtml}</span><span class="m-date">${escapeHtml(m.data.date || "")}</span></a></li>`)
-    .join("")}</ul>`;
 }
 
 // The garden: every note (with a picture of its sketch) and every link, as scattered cards.
 function gardenHtml(page) {
   const categories = toolsWithNotes.flatMap((tool) => categoriesOf(tool).map(({ category }) => category));
   const noteCardsHtml = noteOrder.map((note) => ({ key: note.key, html: noteCard(page, note) }));
-  const linkCardsHtml = links.map((link) => ({ key: link.url, html: `<li class="g-card g-link" data-tags="links ${escapeHtml(link.tool || "")}" style="${scatter(link.url)}">
+  const linkCardsHtml = links.map((link) => ({ key: link.url, html: `<li class="g-card g-link" data-tags="${escapeHtml(["links", link.tool || "", ...browseTags(link)].join(" "))}" style="${scatter(link.url)}">
 <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener"><span class="g-title">${escapeHtml(link.title)} ↗</span><span class="g-text">${escapeHtml(new URL(link.url).hostname.replace(/^www\./, ""))}</span></a></li>` }));
   const cards = [...noteCardsHtml, ...linkCardsHtml].sort((a, b) => hash(a.key) - hash(b.key));
-  return `${filtersHtml([...categories.map((c) => [c.slug, c.title.toLowerCase()]), ["links", "links"]])}
+  const primary = ["sound", "images", "web-based"];
+  const custom = [...new Set([...all("note").flatMap((note) => browseTags(note.data, note.tool)), ...links.flatMap((link) => browseTags(link))])]
+    .filter((value) => !primary.includes(value) && value !== "links" && !categories.some((category) => category.slug === value));
+  return `${filtersHtml([...primary, ...custom].map((value) => [value, value]).concat([["links", "links"]]), {
+    label: "Filter examples",
+    topics: categories.map((category) => [category.slug, category.title.toLowerCase()]),
+  })}
 <ul class="garden">
 ${cards.map((c) => c.html).join("\n")}
 </ul>`;
@@ -572,7 +593,6 @@ ${cards.map((c) => c.html).join("\n")}
 
 function renderHome(page) {
   return `<h1 class="visually-hidden">${escapeHtml(site.title)}</h1>
-${meetupCards(page)}
 ${gardenHtml(page)}
 <article class="panel">
 ${md(page, page.body)}
