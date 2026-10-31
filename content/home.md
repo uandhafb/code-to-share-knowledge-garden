@@ -1,4 +1,4 @@
 ---
-title: "< Code to Share > {Knowloge Garden}"
-summary: Notes, live code info and links from code to share series
+title: "< Code to Share > {Knowledge Garden}"
+summary: Notes, live coding information, and links from the Code to Share series.
 ---
