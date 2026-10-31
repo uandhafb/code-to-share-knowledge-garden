@@ -100,14 +100,18 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
 .brand {
   display: block;
   width: fit-content;
-  padding: 0.15em 0.45em;
-  color: var(--card);
-  background: var(--ink);
+  max-width: 100%;
+  padding-bottom: 0.625rem;
+  border-bottom: 1px solid currentColor;
+  color: #244f32;
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5;
   text-decoration: none;
 }
+.brand:hover { color: #173b23; }
+.brand-name { display: block; }
+.brand-subtitle { display: block; margin-top: 0.125rem; font-size: 0.875rem; font-weight: 400; }
 .side-text { font-size: 1.0625rem; line-height: 1.5; margin: 0.875rem 0 1rem; }
 
 .nav { display: grid; gap: 1rem; margin-top: 1.25rem; font-size: 1.0625rem; }
@@ -309,6 +313,7 @@ pre.code code { background: none; padding: 0; }
 .g-title { display: block; padding: 0.35rem 0.5rem 0; font-size: 1.125rem; line-height: 1.25; }
 .g-title code { background: none; padding: 0; font-size: 1em; }
 .g-text { display: block; padding: 0.2rem 0.5rem 0.55rem; font-size: 0.875rem; line-height: 1.35; }
+.g-title, .g-text { overflow-wrap: anywhere; }
 .g-card a:hover .g-title { text-decoration: underline; }
 
 /* In a meetup page, the cards keep a little of the scatter but stay in reading order. */

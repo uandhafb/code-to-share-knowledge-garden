@@ -465,6 +465,10 @@ const section = (page) => homeMeetup(page)?.key || page.key;
 function layout(page, main, { extra = "" } = {}) {
   const title = page.key === "home" ? site.title : `${stripTags(page.titleHtml)} · ${site.title}`;
   const description = page.summary || site.description;
+  const brandParts = String(site.title).match(/^(.*?)\s+(\{[^}]+\})$/);
+  const brand = brandParts
+    ? `<span class="brand-name">${escapeHtml(brandParts[1])}</span><span class="brand-subtitle">${escapeHtml(brandParts[2])}</span>`
+    : escapeHtml(site.title);
   const nav = meetups.map((meetup) => {
     const current = section(page) === meetup.key ? ' aria-current="page"' : "";
     return `<a href="${href(page, meetup)}"${current} aria-label="${escapeHtml(meetupLabel(meetup))}">#${meetup.number}</a>`;
@@ -489,7 +493,7 @@ function layout(page, main, { extra = "" } = {}) {
 <a class="skip" href="#main">Skip to content</a>
 <div class="shell">
 <header class="side">
-<a class="brand" href="${href(page, pages.get("home"))}">${escapeHtml(site.title)}</a>
+<a class="brand" href="${href(page, pages.get("home"))}" aria-label="${escapeHtml(site.title)}">${brand}</a>
 <div class="side-intro">
 <p class="side-text">${mdInline(page, site.tagline)}</p>
 </div>
