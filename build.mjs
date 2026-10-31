@@ -231,7 +231,6 @@ function sketchHtml(code, { autorun = false } = {}) {
 
 const site = parseYaml(fs.readFileSync(path.join(CONTENT, "site.yml"), "utf8"), "content/site.yml");
 const links = parseYaml(fs.readFileSync(path.join(CONTENT, "links.yml"), "utf8"), "content/links.yml");
-const about = readSource(path.join(CONTENT, "about.md"));
 
 const pages = new Map();
 const looksLikeCode = (title) => /^\.?[a-z]\w*(\(\))?$/.test(title);
@@ -493,10 +492,9 @@ function layout(page, main, { extra = "" } = {}) {
 <a class="brand" href="${href(page, pages.get("home"))}">${escapeHtml(site.title)}</a>
 <div class="side-intro">
 <p class="side-text">${mdInline(page, site.tagline)}</p>
-<details class="side-about"><summary>How to use this garden</summary>${md(page, about.body, { autorun: false })}</details>
 </div>
 <nav class="nav" aria-label="Garden">
-<div class="nav-group"><span class="nav-label">Laço 2026-2027 series</span><div class="nav-meetups">${nav}</div></div>
+<div class="nav-group"><h2 class="series-title">Laço <span>2026–2027 series</span></h2><div class="nav-meetups">${nav}</div></div>
 <div class="nav-group nav-resources">
 <a href="${href(page, pages.get("links"))}"${page.key === "links" ? ' aria-current="page"' : ""}>Links</a>
 <a href="${escapeHtml(site.main_site)}" target="_blank" rel="noopener">LAÇO site ↗</a>

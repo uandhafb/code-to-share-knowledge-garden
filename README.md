@@ -27,7 +27,6 @@ Run `node build.mjs` again after each change. It lists any broken garden link an
 | `assets/thumbs/` | the pictures on the garden cards, one per note (see below) |
 | `tools/thumbnails.cjs` | takes those pictures |
 | `content/links.yml` | the curated links |
-| `content/about.md` | the expandable usage guide in the left information card |
 | `content/home.md`, `content/site.yml` | the home page (the garden of cards), and settings shared by every page |
 | `assets/garden.js` | live sketches, pause, present mode, links filter |
 | `assets/weather.js` | city search, local time, weather data, and the ambient palette |

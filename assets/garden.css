@@ -3,8 +3,8 @@
 
 :root {
   --bg: #111;
-  --card: #eee;
-  --card-2: #fff;
+  --card: #e6f0df;
+  --card-2: #f3f7ed;
   --ink: #000;
   --muted: #444;
   --line: #000;
@@ -109,10 +109,6 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
   text-decoration: none;
 }
 .side-text { font-size: 1.0625rem; line-height: 1.5; margin: 0.875rem 0 1rem; }
-.side-about { font-size: 0.9375rem; line-height: 1.5; }
-.side-about summary { cursor: pointer; text-decoration: underline; text-underline-offset: 0.2em; }
-.side-about ul { margin-bottom: 0; }
-.side-about li + li { margin-top: 0.75rem; }
 
 .nav { display: grid; gap: 1rem; margin-top: 1.25rem; font-size: 1.0625rem; }
 .nav-group { display: grid; gap: 0.5rem; }
@@ -120,7 +116,10 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
 .nav-resources { border-top: 1px solid var(--soft-line); padding-top: 1rem; }
 .nav a { padding: 0 3px; }
 .nav a[aria-current="page"] { background: var(--ink); color: var(--card); text-decoration: none; }
-.nav-label { font-size: 0.875rem; }
+.series-title { display: block; margin: 0 0 0.25rem; padding: 0; color: var(--ink); background: none; font-size: 1.5rem; line-height: 1.2; }
+.series-title span { display: block; margin-top: 0.35rem; font-size: 0.9375rem; font-weight: 400; line-height: 1.5; }
+.nav .nav-meetups a { display: inline-flex; align-items: center; justify-content: center; min-width: 2.5rem; min-height: 2.5rem; padding: 0.3rem 0.5rem; border: 1px solid var(--ink); font-weight: 700; text-decoration: none; }
+.nav .nav-meetups a:hover { background: var(--ink); color: var(--card); }
 
 .controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.125rem; padding-top: 1rem; border-top: 1px solid var(--soft-line); }
 
