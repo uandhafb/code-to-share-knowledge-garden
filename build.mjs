@@ -512,7 +512,7 @@ function layout(page, main, { extra = "" } = {}) {
 <details id="weather-picker">
 <summary>Change place</summary>
 <form id="weather-search-form">
-<label for="weather-search">City or town</label>
+<label for="weather-search">Type a city or town</label>
 <div class="weather-search-row"><input id="weather-search" name="place" type="search" minlength="2" maxlength="100" autocomplete="off" required placeholder="e.g. Montréal or São Paulo"><button type="submit">Find</button></div>
 </form>
 <p id="weather-search-status" role="status"></p>
