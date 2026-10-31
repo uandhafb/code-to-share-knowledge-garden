@@ -502,6 +502,24 @@ function layout(page, main, { extra = "" } = {}) {
 <a href="${escapeHtml(site.main_site)}" target="_blank" rel="noopener">LAÇO site ↗</a>
 </div>
 </nav>
+<section class="weather" aria-labelledby="weather-heading">
+<h2 id="weather-heading">Weather background</h2>
+<p class="weather-place" id="weather-place">Montréal, Canada</p>
+<p class="weather-time"><time id="weather-clock"></time><span id="weather-phase"></span></p>
+<p id="weather-status" role="status">Loading weather…</p>
+<details id="weather-picker">
+<summary>Change place</summary>
+<form id="weather-search-form">
+<label for="weather-search">City or town</label>
+<div class="weather-search-row"><input id="weather-search" name="place" type="search" minlength="2" maxlength="100" autocomplete="off" required placeholder="e.g. Montréal or São Paulo"><button type="submit">Find</button></div>
+</form>
+<p id="weather-search-status" role="status"></p>
+<ul id="weather-results" aria-label="Matching places"></ul>
+<p class="weather-help">Your choice is remembered in this browser.</p>
+</details>
+<button type="button" id="weather-resume" hidden>Show weather background</button>
+<p class="weather-credit">Data: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a></p>
+</section>
 <div class="controls">
 <button type="button" id="pause-visuals" aria-pressed="false">Pause visuals</button>
 <button type="button" id="hide-text" aria-pressed="false">Hide text</button>
@@ -515,6 +533,7 @@ ${main}
 </div>
 ${extra}
 <script src="${HYDRA_SCRIPT.src}" integrity="${HYDRA_SCRIPT.integrity}" crossorigin="anonymous" defer></script>
+<script src="${assetHref(page, "weather.js")}" defer></script>
 <script src="${assetHref(page, "garden.js")}" defer></script>
 </body>
 </html>

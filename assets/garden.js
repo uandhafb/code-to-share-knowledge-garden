@@ -129,6 +129,59 @@
   // ---------- Running code ----------
 
   let paused = false;
+  let visualMode = "weather";
+  let weatherController = null;
+  let weatherTarget = null;
+  let weatherState = null;
+  let weatherGraph = false;
+
+  const copyWeather = (value) => ({ ...value, colors: value.colors.map((color) => [...color]) });
+  function setVisualMode(mode) {
+    visualMode = mode;
+    weatherController?.setActive(mode === "weather");
+  }
+
+  function updateWeatherState(dt) {
+    if (!weatherTarget) return;
+    if (!weatherState || paused) { weatherState = copyWeather(weatherTarget); return; }
+    const amount = 1 - Math.exp(-dt / 2200);
+    for (const key of ["speed", "cloudSpeed", "warp", "clouds", "rain"]) {
+      weatherState[key] += (weatherTarget[key] - weatherState[key]) * amount;
+    }
+    weatherState.colors.forEach((color, i) => color.forEach((channel, j) => {
+      color[j] += (weatherTarget.colors[i][j] - channel) * amount;
+    }));
+  }
+
+  function showWeather() {
+    setVisualMode("weather");
+    markActive(null);
+    if (!weatherTarget) return;
+    document.body.dataset.weatherPhase = weatherTarget.phase;
+    if (!weatherState || paused) weatherState = copyWeather(weatherTarget);
+    const colors = weatherTarget.colors.map((color) => `rgb(${color.map((value) => Math.round(value * 255)).join(",")})`);
+    canvas.style.background = `linear-gradient(160deg, ${colors.join(",")})`;
+    if (!hydra) return;
+    try {
+      hush();
+      window.speed = 1;
+      render(o0);
+      // Map a gently warped grayscale field between two weather-driven colors.
+      // Arrow functions let the palette change without recompiling the sketch.
+      osc(1.6, () => weatherState.speed, 0)
+        .rotate(-Math.PI / 2)
+        .modulate(noise(1.8, () => weatherState.cloudSpeed), () => weatherState.warp)
+        .mult(solid(...[0, 1, 2].map((i) => () => weatherState.colors[1][i] - weatherState.colors[0][i])))
+        .add(solid(...[0, 1, 2].map((i) => () => weatherState.colors[0][i])))
+        .blend(noise(3, () => weatherState.cloudSpeed).color(0.45, 0.51, 0.65), () => weatherState.clouds)
+        .add(osc(95, () => weatherState.speed * 8, 0).rotate(-0.22).mult(noise(12, 0.04)).color(0.65, 0.8, 0.94), () => weatherState.rain)
+        .out(o0);
+      weatherGraph = true;
+      if (paused) hydra.tick(0);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 
   function markActive(box) {
     document.querySelectorAll(".sketch.is-active").forEach((b) => {
@@ -156,15 +209,18 @@
     }
     lastFrameError = "";
     try {
+      weatherGraph = false;
       hush();
       window.speed = 1;
       loadTitle();
       render(o0);
       (0, eval)(code);
     } catch (err) {
+      if (visualMode === "weather") showWeather();
       showError(box, explain(err));
       return;
     }
+    setVisualMode(document.body.classList.contains("presenting") ? "present" : "sketch");
     markActive(box);
     if (paused) hydra.tick(16); // one still frame
   }
@@ -173,6 +229,7 @@
   function frame(now) {
     const dt = Math.min(now - last, 100);
     last = now;
+    if (visualMode === "weather" && !paused) updateWeatherState(dt);
     if (hydra && !paused) hydra.tick(dt);
     requestAnimationFrame(frame);
   }
@@ -313,6 +370,8 @@
       overlay.classList.remove("slide-hidden");
       document.body.classList.remove("presenting");
       setUrl(null);
+      weatherGraph = false;
+      showWeather();
       if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     }
 
@@ -372,7 +431,23 @@
   if (!presenting) {
     const first = document.querySelector(".page [data-sketch][data-autorun]");
     if (first) run(first.querySelector(".sketch-code").value, first);
-    else if (document.body.dataset.ambient) run(document.body.dataset.ambient);
+  }
+
+  if (window.GardenWeather) {
+    weatherController = window.GardenWeather.create({
+      onChange(state) {
+        weatherTarget = state;
+        if (visualMode !== "weather") return;
+        document.body.dataset.weatherPhase = state.phase;
+        updateWeatherState(0);
+        if (!weatherGraph) showWeather();
+        else if (paused && hydra) hydra.tick(0);
+      },
+      onResume: showWeather,
+    });
+    weatherController?.setActive(visualMode === "weather");
+  } else if (!presenting && !activeBox && document.body.dataset.ambient) {
+    run(document.body.dataset.ambient);
   }
 
   // Redraw the title once the fonts have arrived.

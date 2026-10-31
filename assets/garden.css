@@ -48,7 +48,7 @@ a { color: var(--ink); text-underline-offset: 0.2em; text-decoration-thickness: 
 a:hover { text-decoration-thickness: 3px; }
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
-code, kbd, pre, textarea, button { font-family: var(--font); }
+code, kbd, pre, textarea, input, button { font-family: var(--font); }
 code { font-size: 0.95em; background: rgba(0, 0, 0, 0.08); padding: 0.05em 0.25em; }
 kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
 
@@ -135,6 +135,27 @@ button {
 }
 button:hover { background: var(--ink); color: var(--card); }
 button[aria-pressed="true"] { background: var(--ink); color: var(--card); }
+
+/* ---------- Place and weather ---------- */
+
+.weather { margin-top: 1.125rem; padding-top: 1rem; border-top: 1px solid var(--soft-line); }
+.weather h2 { display: block; margin: 0 0 0.65rem; padding: 0; font-size: 0.875rem; font-weight: 400; color: var(--ink); background: none; line-height: 1.5; }
+.weather p { margin: 0.35rem 0; font-size: 0.8125rem; line-height: 1.5; }
+.weather .weather-place { font-size: 0.9375rem; font-weight: 700; }
+.weather-time { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.weather-time span:not(:empty)::before { content: "· "; }
+.weather summary { font-size: 0.8125rem; cursor: pointer; text-decoration: underline; text-underline-offset: 0.2em; }
+.weather form { margin-top: 0.75rem; }
+.weather label { display: block; font-size: 0.8125rem; margin-bottom: 0.3rem; }
+.weather-search-row { display: flex; gap: 0.35rem; }
+.weather input { min-width: 0; width: 100%; border: 1px solid var(--ink); border-radius: 0; background: var(--card-2); color: var(--ink); padding: 0.4rem; font-size: 0.8125rem; }
+.weather button { font-size: 0.8125rem; }
+#weather-results { padding: 0; margin: 0.5rem 0 0; list-style: none; }
+#weather-results li { margin: 0.35rem 0; }
+#weather-results button { width: 100%; padding: 0.5rem; text-align: left; border-width: 1px; line-height: 1.5; }
+#weather-resume { margin-top: 0.6rem; }
+.weather .weather-help { color: var(--muted); }
+.weather .weather-credit { margin-top: 0.75rem; color: var(--muted); font-size: 0.6875rem; }
 
 /* ---------- Content ---------- */
 
@@ -260,6 +281,7 @@ pre.code code { background: none; padding: 0; }
 .filters button { border: 0; padding: 0 0.25rem; text-decoration: underline; text-underline-offset: 0.2em; font-size: inherit; }
 .filters button[aria-pressed="true"] { text-decoration: none; }
 .panel .filters { font-size: 1.0625rem; }
+.kind-home .filters { width: fit-content; max-width: 100%; padding: 0.75rem 1rem; background: var(--card); box-shadow: var(--shadow); }
 .filter-topics { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.75rem; margin-top: 0.5rem; font-size: 0.9375rem; }
 .filter-label { color: var(--muted); margin-right: 0.25rem; }
 

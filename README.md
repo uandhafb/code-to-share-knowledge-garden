@@ -30,6 +30,7 @@ Run `node build.mjs` again after each change. It lists any broken garden link an
 | `content/about.md` | the expandable usage guide in the left information card |
 | `content/home.md`, `content/site.yml` | the home page (the garden of cards), and settings shared by every page |
 | `assets/garden.js` | live sketches, pause, present mode, links filter |
+| `assets/weather.js` | city search, local time, weather data, and the ambient palette |
 | `assets/garden.css` | the look |
 | `build.mjs` | turns `content/` into `_site/` (no dependencies) |
 
@@ -115,6 +116,16 @@ The slide number stays in the URL (`?present=5`), so a refresh keeps your place.
 - Before each run: `hush()`, the LAÇO title is loaded into `s0`, `render(o0)`, then the code runs. Errors show under the code box in plain words.
 - No camera or microphone, ever: no `initCam()`, no audio detection.
 - **Pause visuals** stops the animation (remembered per browser). People who ask their system for reduced motion start paused.
+
+## Weather background
+
+The ambient background follows **Montréal** until a visitor chooses another city under **Change place** in the information card. The city is remembered in that browser; no location permission is requested. Its local sunrise and sunset shift the palette, temperature warms or cools the colors, rain adds fine texture, and wind changes the drift.
+
+Weather and sunrise/sunset data come from [Open-Meteo](https://open-meteo.com/en/docs); city search uses its [geocoding API](https://open-meteo.com/en/docs/geocoding-api), based on GeoNames. Conditions are refreshed every 15 minutes while the page is visible and cached between page visits. If the service is unavailable, the background uses saved weather for up to a day, then local clock time, and displays its fallback status.
+
+Running a sketch takes over the canvas. Weather updates leave that sketch alone. **Show weather background** returns to the ambient visuals, and exiting presentation mode also returns to them. Pause and reduced-motion preferences apply to both modes.
+
+Check the time-zone and weather mappings with `node --test tests/weather.test.cjs`.
 
 ## Publishing
 
