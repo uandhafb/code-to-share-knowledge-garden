@@ -101,17 +101,16 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
   display: block;
   width: fit-content;
   max-width: 100%;
-  padding-bottom: 0.625rem;
-  border-bottom: 1px solid currentColor;
-  color: #244f32;
+  padding: 0.15em 0.45em;
+  color: var(--card);
+  background: #244f32;
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5;
   text-decoration: none;
 }
-.brand:hover { color: #173b23; }
-.brand-name { display: block; }
-.brand-subtitle { display: block; margin-top: 0.125rem; font-size: 0.875rem; font-weight: 400; }
+.brand:hover { background: #173b23; }
+.brand-name, .brand-subtitle { display: block; }
 .side-text { font-size: 1.0625rem; line-height: 1.5; margin: 0.875rem 0 1rem; }
 
 .nav { display: grid; gap: 1rem; margin-top: 1.25rem; font-size: 1.0625rem; }
