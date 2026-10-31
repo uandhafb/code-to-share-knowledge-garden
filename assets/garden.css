@@ -6,6 +6,7 @@
   --card: #e6f0df;
   --card-2: #f3f7ed;
   --ink: #000;
+  --green: #244f32;
   --muted: #444;
   --line: #000;
   --soft-line: rgba(0, 0, 0, 0.18);
@@ -103,7 +104,7 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
   max-width: 100%;
   padding: 0.15em 0.45em;
   color: var(--card);
-  background: #244f32;
+  background: var(--green);
   font-size: 1.125rem;
   font-weight: 700;
   line-height: 1.5;
@@ -281,6 +282,7 @@ pre.code code { background: none; padding: 0; }
 
 .filters { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; margin: 0 0 1.4em; font-size: 1.1875rem; }
 .filters button { border: 0; padding: 0 0.25rem; text-decoration: underline; text-underline-offset: 0.2em; font-size: inherit; }
+.filters button:hover, .filters button[aria-pressed="true"] { background: var(--green); color: var(--card); }
 .filters button[aria-pressed="true"] { text-decoration: none; }
 .panel .filters { font-size: 1.0625rem; }
 .kind-home .filters { width: fit-content; max-width: 100%; padding: 0.75rem 1rem; background: var(--card); box-shadow: var(--shadow); }

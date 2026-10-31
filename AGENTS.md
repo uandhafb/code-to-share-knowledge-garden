@@ -7,3 +7,5 @@ After validating site changes, commit the relevant files and push to `main` on `
 # Public wording
 
 Proofread all public-facing wording, including text supplied by the user. Correct spelling, grammar, and punctuation while preserving the intended meaning and the deliberate formatting of names and code. Do not assume the user's draft spelling is final.
+
+Keep filter-bar labels lowercase. Name the visual category `visuals`, not `images`.

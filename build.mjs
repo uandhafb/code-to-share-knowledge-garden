@@ -558,19 +558,19 @@ const scatter = (s) => {
   return `--x:${((h % 13) - 6) / 8}rem;--y:${(((h >> 4) % 17) - 8) / 4}rem`;
 };
 
-function filtersHtml(tags, { label = "Filter", topics = [], allLabel = "all" } = {}) {
+function filtersHtml(tags, { label = "Filter", topics = [] } = {}) {
   const buttons = (items) => items.map(([value, text]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false">${escapeHtml(text)}</button>`).join("\n");
   return `<div class="filters" role="group" aria-label="${escapeHtml(label)}">
-<button type="button" data-filter="all" aria-pressed="true">${escapeHtml(allLabel)}</button>
+<button type="button" data-filter="all" aria-pressed="true">all</button>
 ${buttons(tags)}
-${topics.length ? `<div class="filter-topics"><span class="filter-label">Hydra topics</span>${buttons(topics)}</div>` : ""}
+${topics.length ? `<div class="filter-topics"><span class="filter-label">hydra topics</span>${buttons(topics)}</div>` : ""}
 </div>`;
 }
 
 // Tools supply a medium; other categories are explicitly tagged by the author.
 function browseTags(data, tool = data.tool) {
   const tags = Array.isArray(data.tags) ? [...data.tags] : [];
-  const medium = { hydra: "images", strudel: "sound" }[tool];
+  const medium = { hydra: "visuals", strudel: "sound" }[tool];
   if (medium) tags.push(medium);
   return [...new Set(tags)];
 }
@@ -589,9 +589,8 @@ function noteCard(page, note) {
 function gardenHtml(page) {
   const categories = toolsWithNotes.flatMap((tool) => categoriesOf(tool).map(({ category }) => category));
   const cards = noteOrder.map((note) => ({ key: note.key, html: noteCard(page, note) })).sort((a, b) => hash(a.key) - hash(b.key));
-  return `${filtersHtml([["sound", "Sound"], ["images", "Images"], ["web-choreography", "Web choreography"], ["open-source", "Open source"]], {
+  return `${filtersHtml([["sound", "sound"], ["visuals", "visuals"], ["web-choreography", "web choreography"], ["open-source", "open source"]], {
     label: "Filter examples",
-    allLabel: "All",
     topics: categories.map((category) => [category.slug, category.title.toLowerCase()]),
   })}
 <ul class="garden">
