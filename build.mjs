@@ -490,14 +490,13 @@ function layout(page, main, { extra = "" } = {}) {
 <a class="skip" href="#main">Skip to content</a>
 <div class="shell">
 <header class="side">
-<a class="brand" href="${href(page, pages.get("home"))}">LAÇO garden</a>
+<a class="brand" href="${href(page, pages.get("home"))}">${escapeHtml(site.title)}</a>
 <div class="side-intro">
 <p class="side-text">${mdInline(page, site.tagline)}</p>
-<p class="side-text">${mdInline(page, about.data.summary)}</p>
 <details class="side-about"><summary>How to use this garden</summary>${md(page, about.body, { autorun: false })}</details>
 </div>
 <nav class="nav" aria-label="Garden">
-<div class="nav-group"><span class="nav-label">Meetups</span><div class="nav-meetups">${nav}</div></div>
+<div class="nav-group"><span class="nav-label">Laço 2026-2027 series</span><div class="nav-meetups">${nav}</div></div>
 <div class="nav-group nav-resources">
 <a href="${href(page, pages.get("links"))}"${page.key === "links" ? ' aria-current="page"' : ""}>Links</a>
 <a href="${escapeHtml(site.main_site)}" target="_blank" rel="noopener">LAÇO site ↗</a>
@@ -512,10 +511,6 @@ function layout(page, main, { extra = "" } = {}) {
 <main id="main" class="page">
 ${main}
 </main>
-<footer class="foot">
-<p>${mdInline(page, site.series_line)}</p>
-<p>${mdInline(page, site.credits)}</p>
-</footer>
 </div>
 </div>
 ${extra}
@@ -594,9 +589,7 @@ ${cards.map((c) => c.html).join("\n")}
 function renderHome(page) {
   return `<h1 class="visually-hidden">${escapeHtml(site.title)}</h1>
 ${gardenHtml(page)}
-<article class="panel">
-${md(page, page.body)}
-</article>`;
+${page.body.trim() ? `<article class="panel">${md(page, page.body)}</article>` : ""}`;
 }
 
 function renderMeetup(page) {

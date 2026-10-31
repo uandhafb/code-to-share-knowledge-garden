@@ -79,7 +79,7 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
 }
 
 /* The information card uses the same plain surface as the reading panels. */
-.panel, .side, .on-sketch .foot p {
+.panel, .side {
   background: var(--card);
   box-shadow: var(--shadow);
 }
@@ -103,9 +103,9 @@ kbd { font-size: 0.85em; border: 1px solid currentColor; padding: 0 0.35em; }
   padding: 0.15em 0.45em;
   color: var(--card);
   background: var(--ink);
-  font-size: 1.5rem;
+  font-size: 1.125rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.5;
   text-decoration: none;
 }
 .side-text { font-size: 1.0625rem; line-height: 1.5; margin: 0.875rem 0 1rem; }
@@ -207,9 +207,6 @@ pre.code code { background: none; padding: 0; }
 .chips a { display: inline-block; margin: 0 0.625rem 0.375rem 0; }
 
 .pager { display: flex; justify-content: space-between; gap: 0.75rem; margin-top: 2.5em; padding-top: 1em; border-top: 1px solid var(--ink); }
-
-.foot { margin-top: var(--gutter); font-size: 0.875rem; }
-.foot p { display: table; margin: 0 0 0.5rem; padding: 4px 0.625rem; }
 
 /* ---------- Live sketches ---------- */
 
@@ -328,8 +325,7 @@ pre.code code { background: none; padding: 0; }
 
 /* ---------- Hide text / present mode ---------- */
 
-body.text-hidden .page,
-body.text-hidden .foot { visibility: hidden; }
+body.text-hidden .page { visibility: hidden; }
 
 body.presenting .shell { display: none; }
 
@@ -385,7 +381,6 @@ body.presenting .shell { display: none; }
 
 @media (max-width: 640px) {
   body { font-size: 1rem; }
-  .brand { font-size: 1.25rem; }
   .lede { font-size: 1.125rem; }
   .sketch-code { font-size: 0.9375rem; }
   .sketch-hint { display: none; }

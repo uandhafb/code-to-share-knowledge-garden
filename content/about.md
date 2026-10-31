@@ -1,7 +1,3 @@
----
-summary: One note per idea, with live code you can edit and run right on the page.
----
-
 - **During a meetup**, its page becomes a full-screen present mode with live code. Press **P** there.
 - **At home**, browse the notes, change the numbers and see what happens.
 - **Over time**, other presenters can add their own notes, so the garden becomes the archive of LAÇO.
