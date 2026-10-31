@@ -1,13 +1,13 @@
 # Settings shared by every page of the garden.
 title: "< Code to Share > {Knowledge Garden}"
-description: Notes, live coding information, and links from the Code to Share series.
+description: Notes from < Code to Share > meetups, plus information and links about live coding.
 # Where the garden is published. Change it if it moves to a custom domain.
 url: https://uandhafb.github.io/code-to-share-knowledge-garden/
 # Uncomment to publish on a custom domain (also set `url` above).
 # domain: garden.codetoshare.org
 main_site: https://laco.codetoshare.org
 # Short line under the title, on every page.
-tagline: Notes, live coding information, and links from the Code to Share series.
+tagline: Notes from < Code to Share > meetups, plus information and links about live coding.
 # The garden background: a soft gradient, for pages without a sketch of their own.
 ambient: "osc(4.5, 0.004, 2.1).rotate(-1.57).saturate(0.6).brightness(0.3).out()"
 links_intro: Docs, tutorials, talks and projects we like. Filter by type or by tool.
