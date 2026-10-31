@@ -88,9 +88,9 @@ Add an entry to `content/links.yml`:
 
 The Links page filters resources by **all**, **hydra**, **strudel**, or **toplap**. Set each entry's `tool` to the matching group.
 
-The home page keeps the meetup and site navigation in the information card, with all notes and links in the garden. Its main filters are **sound**, **images**, and **web-based**, followed by the Hydra topics. Hydra entries default to images and Strudel entries to sound; runnable browser sketches and browser tools also appear under web-based. An entry can belong to more than one filter.
+The home page keeps the meetup and site navigation in the information card, with example notes in the garden. External resources appear on the Links page and the relevant meetup pages. The garden's main filters are **All**, **Sound**, **Images**, **Web choreography**, and **Open source**, followed by the Hydra topics. Hydra notes default to images and Strudel notes to sound. An example can belong to more than one filter.
 
-Add an optional `tags: [interactive]` list to a note's header or a link entry to introduce another browsing filter. New tags appear automatically on the home page.
+Add `tags: [web-choreography]` or `tags: [open-source]` to an example's header to include it in those categories. These tags are explicit: running in a browser alone does not make an example web choreography. Categories without examples show a short empty-state message.
 
 ## Meetup pages and present mode
 

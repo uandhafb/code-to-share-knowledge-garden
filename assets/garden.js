@@ -299,9 +299,13 @@
       if (!button) return;
       const value = button.dataset.filter;
       filters.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      let visible = 0;
       document.querySelectorAll(".page [data-tags]").forEach((card) => {
         card.hidden = value !== "all" && !card.dataset.tags.split(" ").includes(value);
+        if (!card.hidden) visible++;
       });
+      const empty = document.querySelector(".garden-empty");
+      if (empty) empty.hidden = visible > 0;
     });
   }
 

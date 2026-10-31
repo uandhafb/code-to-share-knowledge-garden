@@ -328,7 +328,7 @@ pre.code code { background: none; padding: 0; }
 .g-modulate { background: #ab8ff6; }
 .g-patterns { background: #c8f36b; }
 .g-output { background: #9ec9ff; }
-.g-link { background: #fff; }
+.garden-empty { width: fit-content; max-width: 100%; margin: 0 0 1rem; padding: 1rem; background: var(--card); box-shadow: var(--shadow); }
 
 /* ---------- Links page ---------- */
 

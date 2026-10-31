@@ -558,22 +558,20 @@ const scatter = (s) => {
   return `--x:${((h % 13) - 6) / 8}rem;--y:${(((h >> 4) % 17) - 8) / 4}rem`;
 };
 
-function filtersHtml(tags, { label = "Filter", topics = [] } = {}) {
+function filtersHtml(tags, { label = "Filter", topics = [], allLabel = "all" } = {}) {
   const buttons = (items) => items.map(([value, text]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false">${escapeHtml(text)}</button>`).join("\n");
   return `<div class="filters" role="group" aria-label="${escapeHtml(label)}">
-<button type="button" data-filter="all" aria-pressed="true">all</button>
+<button type="button" data-filter="all" aria-pressed="true">${escapeHtml(allLabel)}</button>
 ${buttons(tags)}
 ${topics.length ? `<div class="filter-topics"><span class="filter-label">Hydra topics</span>${buttons(topics)}</div>` : ""}
 </div>`;
 }
 
-// Tools supply sensible defaults; an entry can add its own browsing tags.
-// Web-based means an example or tool that can be run in the browser.
-function browseTags(data, tool = data.tool, sketch = false) {
+// Tools supply a medium; other categories are explicitly tagged by the author.
+function browseTags(data, tool = data.tool) {
   const tags = Array.isArray(data.tags) ? [...data.tags] : [];
   const medium = { hydra: "images", strudel: "sound" }[tool];
   if (medium) tags.push(medium);
-  if (sketch || (medium && data.type === "tool")) tags.push("web-based");
   return [...new Set(tags)];
 }
 
@@ -582,28 +580,24 @@ function noteCard(page, note) {
   const img = fs.existsSync(path.join(ROOT, "assets", thumb))
     ? `<img src="${"../".repeat(depth(page.url))}assets/${thumb}" alt="" width="480" height="300" loading="lazy">`
     : `<span class="g-noimg" aria-hidden="true"></span>`;
-  const tags = [note.tool, note.data.category, ...browseTags(note.data, note.tool, Boolean(note.firstSketch))];
+  const tags = [note.tool, note.data.category, ...browseTags(note.data, note.tool)];
   return `<li class="g-card g-${escapeHtml(note.data.category)}" data-tags="${escapeHtml(tags.join(" "))}" style="${scatter(note.key)}">
 <a href="${href(page, note)}">${img}<span class="g-title">${note.titleHtml}</span><span class="g-text">${mdInline(page, note.summary)}</span></a></li>`;
 }
 
-// The garden: every note (with a picture of its sketch) and every link, as scattered cards.
+// The garden contains examples. External resources live on the Links page.
 function gardenHtml(page) {
   const categories = toolsWithNotes.flatMap((tool) => categoriesOf(tool).map(({ category }) => category));
-  const noteCardsHtml = noteOrder.map((note) => ({ key: note.key, html: noteCard(page, note) }));
-  const linkCardsHtml = links.map((link) => ({ key: link.url, html: `<li class="g-card g-link" data-tags="${escapeHtml(["links", link.tool || "", ...browseTags(link)].join(" "))}" style="${scatter(link.url)}">
-<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener"><span class="g-title">${escapeHtml(link.title)} ↗</span><span class="g-text">${escapeHtml(new URL(link.url).hostname.replace(/^www\./, ""))}</span></a></li>` }));
-  const cards = [...noteCardsHtml, ...linkCardsHtml].sort((a, b) => hash(a.key) - hash(b.key));
-  const primary = ["sound", "images", "web-based"];
-  const custom = [...new Set([...all("note").flatMap((note) => browseTags(note.data, note.tool)), ...links.flatMap((link) => browseTags(link))])]
-    .filter((value) => !primary.includes(value) && value !== "links" && !categories.some((category) => category.slug === value));
-  return `${filtersHtml([...primary, ...custom].map((value) => [value, value]).concat([["links", "links"]]), {
+  const cards = noteOrder.map((note) => ({ key: note.key, html: noteCard(page, note) })).sort((a, b) => hash(a.key) - hash(b.key));
+  return `${filtersHtml([["sound", "Sound"], ["images", "Images"], ["web-choreography", "Web choreography"], ["open-source", "Open source"]], {
     label: "Filter examples",
+    allLabel: "All",
     topics: categories.map((category) => [category.slug, category.title.toLowerCase()]),
   })}
 <ul class="garden">
 ${cards.map((c) => c.html).join("\n")}
-</ul>`;
+</ul>
+<p class="garden-empty" role="status" hidden>No examples in this category yet.</p>`;
 }
 
 function renderHome(page) {
