@@ -518,9 +518,9 @@ function layout(page, main, { extra = "" } = {}) {
 <p id="weather-search-status" role="status"></p>
 <ul id="weather-results" aria-label="Matching places"></ul>
 <p class="weather-help">Your choice is remembered in this browser.</p>
+<p class="weather-credit">Data: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a></p>
 </details>
 <button type="button" id="weather-resume" hidden>Show weather background</button>
-<p class="weather-credit">Data: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · <a href="https://www.geonames.org/" target="_blank" rel="noopener">GeoNames</a></p>
 </section>
 <div class="controls">
 <button type="button" id="hide-text" aria-pressed="false">Hide text</button>
