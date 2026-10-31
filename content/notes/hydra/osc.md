@@ -4,7 +4,7 @@ tool: hydra
 category: source
 level: beginner
 meetups: [1]
-summary: Colorful moving stripes.
+summary: The moving stripes.
 related: [noise, kaleid, color]
 author: Uandha Fernandes Barbosa
 ---
