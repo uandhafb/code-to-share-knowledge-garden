@@ -44,7 +44,7 @@ Run `node build.mjs` again after each change. It lists any broken garden link an
    tool: hydra
    category: source          # source | geometry | color | blend | modulate | patterns | output
    level: beginner
-   summary: Generates a striped pattern.    # one line, used in lists and present mode
+   summary: The striped pattern.            # one line, used in lists and present mode
    related: [noise, kaleid, color]
    meetups: [1]                             # the meetups where this note is used
    author: Your Name
