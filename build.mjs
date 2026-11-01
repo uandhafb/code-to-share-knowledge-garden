@@ -615,7 +615,7 @@ ${d.date || d.venue ? `<dl class="facts">
 ${d.date ? `<dt>When</dt><dd>${escapeHtml(d.date)}</dd>` : ""}
 ${d.venue ? `<dt>Where</dt><dd>${mdInline(page, d.venue)}</dd>` : ""}
 </dl>` : ""}
-${trail.length ? `<p><button type="button" class="present-start" data-present-from="0">Present <kbd>P</kbd></button> <span class="muted">Every step of the meetup becomes a full-screen slide with live code.</span></p>` : ""}
+${trail.length ? `<p><button type="button" class="present-start" data-present-from="0">Present <kbd>P</kbd></button> <span class="muted">Enter presentation mode.</span></p>` : ""}
 ${md(page, page.body, { autorun: false })}
 </article>`,
     extra: trail.length ? `${presentOverlay}\n<script type="application/json" id="trail-data">${json}</script>` : "",
