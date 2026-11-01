@@ -4,7 +4,7 @@ tool: hydra
 category: source
 level: beginner
 meetups: [1]
-summary: The moving stripes.
+summary: Generates a striped pattern.
 related: [noise, kaleid, color]
 author: Uandha Fernandes Barbosa
 ---
