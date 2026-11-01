@@ -92,6 +92,8 @@ The home page keeps the meetup and site navigation in the information card, with
 
 Add `tags: [web-choreography]` or `tags: [open-source]` to an example's header to include it in those categories. These tags are explicit: running in a browser alone does not make an example web choreography. Categories without examples show a short empty-state message.
 
+Example cards use responsive grids on the home and meetup pages. Columns adapt to the available width, thumbnails keep their proportions, and titles and descriptions wrap within each card. Category and resource cards also stay within their containers on narrow screens.
+
 ## Meetup pages and present mode
 
 Each meetup is a file in `content/meetups/` (`02.md`, `03.md`, `04.md` are placeholders until their program is ready). In the body, `{{meetup_notes}}` shows the notes tagged with that meetup, and `{{meetup_links}}` its links.

@@ -11,3 +11,5 @@ Proofread all public-facing wording, including text supplied by the user. Correc
 Keep filter-bar labels lowercase. Name the visual category `visuals`, not `images`.
 
 Use the shared green palette for selected controls, hover states, current navigation, and highlighted UI labels.
+
+Keep cards responsive and fully readable at every screen size. Cards must not overlap each other, headings, or filters.
