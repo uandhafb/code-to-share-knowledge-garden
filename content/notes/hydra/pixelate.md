@@ -4,7 +4,7 @@ tool: hydra
 category: geometry
 level: beginner
 meetups: [1]
-summary: Big, blocky pixels.
+summary: Reduces the image resolution for a pixelated effect.
 related: [repeat, modulate-pixelate, noise]
 author: Uandha Fernandes Barbosa
 ---
