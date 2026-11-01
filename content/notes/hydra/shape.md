@@ -4,7 +4,7 @@ tool: hydra
 category: source
 level: beginner
 meetups: [1]
-summary: A polygon.
+summary: A geometric shape.
 related: [scale, repeat, rotate]
 author: Uandha Fernandes Barbosa
 ---
