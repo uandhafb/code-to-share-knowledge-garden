@@ -658,7 +658,6 @@ ${page.summary ? `<p class="lede">${mdInline(page, page.summary)}</p>` : ""}
     category ? tag(category.title, d.category) : "",
     d.level ? tag(d.level) : "",
     ...meetupsOf(page).map((m) => `<a href="${href(page, m)}">${meetupLabel(m)}</a>`),
-    d.author ? `<span class="muted">by ${escapeHtml(d.author)}</span>` : "",
     rules && rules !== category ? `<a href="${href(page, rules, "rules-for-every-function")}">Rules for every function</a>` : "",
     slide ? `<a href="${href(page, meetup)}?present=${slide}">Present from here</a>` : "",
   ]
