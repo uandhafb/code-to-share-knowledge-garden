@@ -551,6 +551,13 @@ const onSketch = (page) => (page.kind === "note" || page.kind === "category") &&
 // A small, stable number from a name, so the home page keeps the same card order.
 const hash = (s) => [...s].reduce((h, ch) => (h * 31 + ch.charCodeAt(0)) >>> 0, 7);
 
+// Loose positions stay in document flow, preserving room for every card's text.
+const scatter = (note) => {
+  const seed = hash(note.key);
+  const width = Math.max(10.5, Math.min(13, stripTags(note.titleHtml).length * 0.675 + 2));
+  return `--card-width:${width.toFixed(2)}rem;--left:${(seed % 7) / 8}rem;--top:${((seed >>> 4) % 17) / 4}rem`;
+};
+
 function filtersHtml(tags, { label = "Filter", topics = [] } = {}) {
   const buttons = (items) => items.map(([value, text]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false"${value === "visuals" && topics.length ? ' aria-controls="hydra-topics" aria-expanded="false"' : ""}>${escapeHtml(text)}</button>`).join("\n");
   return `<div class="filters" role="group" aria-label="${escapeHtml(label)}">
@@ -574,7 +581,7 @@ function noteCard(page, note) {
     ? `<img src="${"../".repeat(depth(page.url))}assets/${thumb}" alt="" width="480" height="300" loading="lazy">`
     : `<span class="g-noimg" aria-hidden="true"></span>`;
   const tags = [note.tool, note.data.category, ...browseTags(note.data, note.tool)];
-  return `<li class="g-card g-${escapeHtml(note.data.category)}" data-tags="${escapeHtml(tags.join(" "))}">
+  return `<li class="g-card g-${escapeHtml(note.data.category)}" data-tags="${escapeHtml(tags.join(" "))}" style="${scatter(note)}">
 <a href="${href(page, note)}">${img}<span class="g-title">${note.titleHtml}</span><span class="g-text">${mdInline(page, note.summary)}</span></a></li>`;
 }
 

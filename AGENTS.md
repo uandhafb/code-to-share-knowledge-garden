@@ -12,4 +12,4 @@ Keep filter-bar labels lowercase. Name the visual category `visuals`, not `image
 
 Use the shared green palette for selected controls, hover states, current navigation, and highlighted UI labels.
 
-Keep cards responsive and fully readable at every screen size. Cards must not overlap each other, headings, or filters.
+Preserve the loose, scattered card arrangement inspired by the Hydra garden. Uneven positions, natural heights, and small overlaps are part of its character. Responsive fixes should keep cards on screen and text readable, and keep headings and filters clear; do not replace the composition with a uniform grid.

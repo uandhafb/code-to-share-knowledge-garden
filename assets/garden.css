@@ -296,22 +296,24 @@ pre.code code { background: none; padding: 0; }
 
 .garden {
   list-style: none;
-  padding: 0;
+  padding: 0.5rem 0.25rem 1.5rem 0;
   margin: 0 0 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 .g-card {
   position: relative;
+  flex: 0 0 auto;
+  width: min(var(--card-width, 10.5rem), calc(100% - var(--left, 0rem)));
   min-width: 0;
-  margin: 0;
+  margin: var(--top, 0rem) -0.25rem 1.25rem var(--left, 0rem);
   box-shadow: 0 0 14px rgba(0, 0, 0, 0.35);
   background: var(--card);
 }
 .g-card[hidden] { display: none; }
 .g-card:hover, .g-card:focus-within { z-index: 2; box-shadow: 0 0 22px rgba(0, 0, 0, 0.6); }
-.g-card a { display: flex; flex-direction: column; height: 100%; color: var(--ink); text-decoration: none; }
+.g-card a { display: block; color: var(--ink); text-decoration: none; }
 .g-card img, .g-noimg { display: block; flex-shrink: 0; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: #000; }
 .g-title { display: block; padding: 0.35rem 0.5rem 0; font-size: 1.125rem; line-height: 1.25; }
 .g-title code { background: none; padding: 0; font-size: 1em; }
@@ -319,8 +321,9 @@ pre.code code { background: none; padding: 0; }
 .g-title, .g-text { overflow-wrap: anywhere; }
 .g-card a:hover .g-title { text-decoration: underline; }
 
-/* Keep each meetup's card group clear of the next heading. */
+/* Let cards wander in normal flow so their group still clears the next heading. */
 .garden-tidy { margin: 0.75rem 0 2rem; }
+.garden-tidy .g-card { margin-top: calc(var(--top, 0rem) / 2); margin-left: calc(var(--left, 0rem) / 2); }
 
 /* One color per category, like the colored cards of the Hydra garden. */
 .g-source { background: #ffe66d; }

@@ -92,7 +92,7 @@ The home page keeps the meetup and site navigation in the information card, with
 
 Add `tags: [web-choreography]` or `tags: [open-source]` to an example's header to include it in those categories. These tags are explicit: running in a browser alone does not make an example web choreography. Categories without examples show a short empty-state message.
 
-Example cards use responsive grids on the home and meetup pages. Columns adapt to the available width, thumbnails keep their proportions, and titles and descriptions wrap within each card. Category and resource cards also stay within their containers on narrow screens.
+Example cards keep a loose, scattered arrangement inspired by the Hydra garden. Stable offsets, natural heights, and slight edge overlaps retain that character as cards wrap to the available width. Offsets stay in document flow so text, headings, and filters remain readable. Category and resource cards also stay within their containers on narrow screens.
 
 ## Meetup pages and present mode
 
