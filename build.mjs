@@ -182,7 +182,9 @@ function renderMarkdown(src, ctx) {
     } else if (/^\s*\|/.test(line)) {
       const rows = [];
       for (; i < lines.length && /^\s*\|/.test(lines[i]); i++) {
-        rows.push(lines[i].trim().replace(/^\||\|$/g, "").split("|").map((cell) => cell.trim()));
+        // A pipe written as \| stays inside its cell, as in GitHub Markdown.
+        const row = lines[i].trim().replace(/^\|/, "").replace(/(?<!\\)\|$/, "");
+        rows.push(row.split(/(?<!\\)\|/).map((cell) => cell.trim().replace(/\\\|/g, "|")));
       }
       const [head, , ...body] = rows;
       const cells = (row, tag) => row.map((cell) => `<${tag}>${inline(cell, ctx)}</${tag}>`).join("");
