@@ -2,7 +2,7 @@
 title: Functions
 order: 3
 summary: "Change the whole pattern, after the dot."
-notes: [fast, slow, rev, jux, ply, late-early, degrade-by]
+notes: [fast, slow, rev, jux, ply, degrade-by]
 ---
 
 The mini-notation inside the quotes is the pattern. The functions after the dot change what we do with it. You can chain as many as you like, and a new line is fine, as long as it starts with a dot:
