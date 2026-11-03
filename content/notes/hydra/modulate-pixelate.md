@@ -1,9 +1,10 @@
 ---
+hidden: true # next week, Meetup #2
 title: modulatePixelate
 tool: hydra
 category: modulate
 level: beginner
-meetups: [1]
+meetups: [2]
 summary: The second image decides how blocky each part is.
 related: [pixelate, modulate, noise]
 author: Uandha Fernandes Barbosa

@@ -1,9 +1,10 @@
 ---
+hidden: true # next week, Meetup #2
 title: modulateRotate
 tool: hydra
 category: modulate
 level: beginner
-meetups: [1]
+meetups: [2]
 summary: Each pixel turns as much as the second image is bright.
 related: [rotate, modulate, modulate-scale]
 author: Uandha Fernandes Barbosa

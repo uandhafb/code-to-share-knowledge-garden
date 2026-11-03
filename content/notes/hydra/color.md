@@ -13,6 +13,8 @@ author: Uandha Fernandes Barbosa
 
 `color(r, g, b, a)` · defaults: `color(1, 1, 1, 1)`
 
+Think of three volume knobs: one for red, one for green, and one for blue.
+
 ## Parameters
 
 - **r**, **g** and **b**: how much red, green and blue to keep: 0 none, 1 normal, 2 extra.
@@ -34,6 +36,12 @@ Keep only the red:
 
 ```hydra
 osc(20, 0.1, 0).color(1, 0, 0).out()
+```
+
+A little green and full blue make light blue stripes:
+
+```hydra
+osc(20, 0.1, 0).color(0, 0.5, 1).out()
 ```
 
 A cyan square:

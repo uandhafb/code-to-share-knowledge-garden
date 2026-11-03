@@ -16,7 +16,7 @@ author: Uandha Fernandes Barbosa
 ## Parameters
 
 - **texture**: the second image: a source, a chain, or an output like `o1`.
-- **amount**: 0 shows only the first image, 1 only the second.
+- **amount**: where the slider of a DJ mixer is: 0 shows only the first image, 0.5 half of each, 1 only the second.
 
 ## Negative values
 
@@ -29,6 +29,21 @@ osc(20, 0.1, 1).blend(shape(4, 0.4), 0.5).out()
 ```
 
 ## Try this
+
+Mostly stripes, then half and half, then mostly clouds:
+
+```hydra
+osc(20, 0.1, 1).blend(noise(3), 0.2).out()
+```
+
+```hydra
+osc(20, 0.1, 1).blend(noise(3), 0.5).out()
+```
+
+```hydra
+osc(20, 0.1, 1).blend(noise(3), 0.8).out()
+```
+
 
 Blend three images. Each `blend(…, 0.5)` keeps half of what came before, so the stripes fade the most:
 

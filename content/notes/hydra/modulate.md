@@ -1,9 +1,10 @@
 ---
+hidden: true # next week, Meetup #2
 title: modulate
 tool: hydra
 category: modulate
 level: beginner
-meetups: [1]
+meetups: [2]
 summary: Wavy glass: a second image pushes the pixels around.
 related: [modulate-rotate, scroll, noise]
 author: Uandha Fernandes Barbosa

@@ -1,9 +1,10 @@
 ---
+hidden: true # next week, Meetup #2
 title: modulateRepeat
 tool: hydra
 category: modulate
 level: beginner
-meetups: [1]
+meetups: [2]
 summary: Copies of the image, shifted by a second image.
 related: [repeat, modulate, modulate-kaleid]
 author: Uandha Fernandes Barbosa

@@ -330,6 +330,25 @@ pre.code code { background: none; padding: 0; }
 .g-modulate { background: #ab8ff6; }
 .g-patterns { background: #c8f36b; }
 .g-output { background: #9ec9ff; }
+/* Strudel (sound) categories. */
+.g-sounds { background: #ff9e8a; }
+.g-mini-notation { background: #d7c4ff; }
+.g-functions { background: #a6f2c6; }
+.g-effects { background: #ffd6a0; }
+.g-stacking { background: #c4d4ff; }
+
+/* A sound card has no picture, so it shows its code instead. */
+.g-code { box-sizing: border-box; aspect-ratio: auto; height: 6.5625rem; overflow: hidden; padding: 0.6rem 0.65rem; color: var(--code-ink); font-size: 0.75rem; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }
+.g-code { position: relative; }
+.g-code::after { content: ""; position: absolute; inset: auto 0 0; height: 1.6rem; background: linear-gradient(transparent, #000); }
+.g-code code { background: none; padding: 0; color: inherit; font-size: 1em; }
+
+/* A Strudel example: the code, then a link that opens it in the Strudel REPL. */
+.strudel { margin: 1em 0; }
+.strudel pre.code { margin: 0; }
+.strudel figcaption { margin: 0; }
+.strudel figcaption a { display: inline-block; padding: 0.2rem 0.6rem; background: var(--green); color: var(--card); font-size: 0.875rem; text-decoration: none; }
+.strudel figcaption a:hover { background: var(--green-dark); text-decoration: underline; }
 .garden-empty { width: fit-content; max-width: 100%; margin: 0 0 1rem; padding: 1rem; background: var(--card); box-shadow: var(--shadow); }
 
 /* ---------- Links page ---------- */

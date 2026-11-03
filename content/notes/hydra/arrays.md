@@ -24,6 +24,17 @@ shape(4, [0.1, 0.4].smooth()).out()
 
 ## Try this
 
+A shape that changes its number of sides, then the same list four times as fast:
+
+```hydra
+shape([3, 4, 5, 6]).out()
+```
+
+```hydra
+shape([3, 4, 5, 6].fast(4)).out()
+```
+
+
 Arrays for color: the red and blue channels swap every 2 seconds:
 
 ```hydra

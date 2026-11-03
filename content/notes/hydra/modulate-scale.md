@@ -1,9 +1,10 @@
 ---
+hidden: true # next week, Meetup #2
 title: modulateScale
 tool: hydra
 category: modulate
 level: beginner
-meetups: [1]
+meetups: [2]
 summary: Each pixel zooms as much as the second image is bright.
 related: [scale, modulate, modulate-rotate]
 author: Uandha Fernandes Barbosa

@@ -1,9 +1,10 @@
 ---
+hidden: true # next week, Meetup #2
 title: modulateKaleid
 tool: hydra
 category: modulate
 level: beginner
-meetups: [1]
+meetups: [2]
 summary: A kaleidoscope bent by a second image.
 related: [kaleid, modulate, osc]
 author: Uandha Fernandes Barbosa

@@ -18,6 +18,8 @@ author: Uandha Fernandes Barbosa
 - **texture**: the second image: a source, a chain, or an output like `o1`. It has no default; you always give one.
 - **amount**: how much of the second image to add (1 = all of it).
 
+Like two projectors pointed at the same wall, the light adds up. Where the second image is black, nothing changes; where it's bright, the first image gets brighter, up to white.
+
 ## Negative values
 
 - **amount**: subtracts the second image instead, so the result gets darker.

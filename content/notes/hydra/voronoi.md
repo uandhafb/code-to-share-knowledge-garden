@@ -33,6 +33,13 @@ voronoi(10, 0.1, -1).out()
 
 ## Try this
 
+Still and flat, so you can count the cells:
+
+```hydra
+voronoi(5, 0, 0).out()
+```
+
+
 A flat pattern:
 
 ```hydra

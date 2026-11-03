@@ -21,7 +21,7 @@ Run `node build.mjs` again after each change. It lists any broken garden link an
 
 | Path | What |
 |---|---|
-| `content/notes/<tool>/<slug>.md` | one concept per note (`osc`, `noise`, `modulate`…) |
+| `content/notes/<tool>/<slug>.md` | one concept per note (`hydra/osc`, `strudel/gain`…) |
 | `content/categories/<tool>/<slug>.md` | category pages (Source, Geometry…); each lists its notes in order |
 | `content/meetups/<nn>.md` | one page per meetup (`01.md` to `04.md`): what happens, the tools, the notes, the links, and the trail used by present mode |
 | `assets/thumbs/` | the pictures on the garden cards, one per note (see below) |
@@ -69,6 +69,16 @@ A fenced block marked `hydra` becomes a live code box with a **Run** button. The
 osc(10, 0.1, 1).out()
 ```
 ````
+
+A fenced block marked `strudel` shows the code with an **Open in Strudel** link that loads it into the [Strudel REPL](https://strudel.cc/). On the garden cards, a Strudel note shows its first `strudel` block in place of a picture.
+
+````md
+```strudel
+s("bd sd [~ bd] sd, hh*8")
+```
+````
+
+To keep a note or a category for a later meetup, add `hidden: true` to its header. It stays in `content/` but isn't published: lists and trails skip it, and links to it become plain text. Delete the line when it's time to publish it.
 
 Link to other pages with double brackets: `[[noise]]`, `[[category:hydra/source#rules-for-every-function|the rules]]`, `[[meetup:01|Meetup #1]]`, `[[links]]`.
 

@@ -18,7 +18,7 @@ author: Uandha Fernandes Barbosa
 - **texture**: the second image: a source, a chain, or an output like `o1`.
 - **amount**: how strong the effect is (1 = full).
 
-The result gets darker, and the black areas of the second image hide the first one, like a stencil.
+The result gets darker, like a stencil: where the second image is white, the first shows through as it is; where it's black, the first disappears. Gray makes the first image darker, and color tints it.
 
 ## Negative values
 
@@ -36,4 +36,10 @@ Stripes seen through a grid of squares:
 
 ```hydra
 osc(20, 0.1, 1).mult(shape(4, 0.3).repeat(7, 3)).out()
+```
+
+A colored second image tints the first:
+
+```hydra
+osc(20, 0.1, 0).mult(osc(3, 0.1, 2)).out()
 ```

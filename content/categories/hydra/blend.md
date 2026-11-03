@@ -2,7 +2,7 @@
 title: Blend
 order: 4
 summary: Mix two images together.
-notes: [add, blend, mult]
+notes: [add, sub, layer, blend, mult, diff, mask]
 ---
 
 Blend functions take a second image as their first parameter (see the [[category:hydra/source#rules-for-every-function|rules]]) and mix it with the image before them.

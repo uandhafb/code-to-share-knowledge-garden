@@ -43,3 +43,9 @@ A square sliding sideways forever:
 ```hydra
 shape(4, 0.2).scrollX(0, 0.1).out()
 ```
+
+A triangle sliding up or down forever (a negative speed goes the other way):
+
+```hydra
+shape(3, 0.3).scrollY(0, -0.1).out()
+```

@@ -163,7 +163,9 @@ function renderMarkdown(src, ctx) {
       for (i++; i < lines.length && !/^```\s*$/.test(lines[i]); i++) code.push(lines[i]);
       i++;
       const text = code.join("\n");
-      html.push(m[1] === "hydra" ? ctx.sketch(text) : `<pre class="code"><code>${escapeHtml(text)}</code></pre>`);
+      html.push(
+        m[1] === "hydra" ? ctx.sketch(text) : m[1] === "strudel" ? strudelHtml(text) : `<pre class="code"><code>${escapeHtml(text)}</code></pre>`
+      );
     } else if ((m = line.match(/^\{\{(\w+)\}\}\s*$/))) {
       html.push(ctx.slot(m[1]));
       i++;
@@ -229,12 +231,26 @@ function sketchHtml(code, { autorun = false } = {}) {
 </figure>`;
 }
 
+// A ```strudel fence shows the code with a link that opens it in the Strudel REPL,
+// which reads the code from the URL hash (base64, then URI-encoded).
+const strudelUrl = (code) => `https://strudel.cc/#${encodeURIComponent(Buffer.from(code, "utf8").toString("base64"))}`;
+
+function strudelHtml(code) {
+  return `<figure class="strudel">
+<pre class="code"><code>${escapeHtml(code)}</code></pre>
+<figcaption><a href="${escapeHtml(strudelUrl(code))}" target="_blank" rel="noopener">Open in Strudel ↗</a></figcaption>
+</figure>`;
+}
+
 // ---------- Load content ----------
 
 const site = parseYaml(fs.readFileSync(path.join(CONTENT, "site.yml"), "utf8"), "content/site.yml");
 const links = parseYaml(fs.readFileSync(path.join(CONTENT, "links.yml"), "utf8"), "content/links.yml");
 
 const pages = new Map();
+// Notes and categories with `hidden: true` stay in content/ but aren't published yet.
+// Links to them become plain text, and lists and trails skip them.
+const hiddenPages = new Map();
 const looksLikeCode = (title) => /^\.?[a-z]\w*(\(\))?$/.test(title);
 
 function addPage(key, url, kind, file) {
@@ -250,9 +266,10 @@ function addPage(key, url, kind, file) {
     titleHtml: looksLikeCode(title) ? `<code>${escapeHtml(title)}</code>` : escapeHtml(title),
     summary: data.summary ? String(data.summary) : "",
     firstSketch: (body.match(/^```hydra\s*\n([\s\S]*?)\n```/m) || [])[1] || "",
+    firstStrudel: (body.match(/^```strudel\s*\n([\s\S]*?)\n```/m) || [])[1] || "",
     file: file && path.relative(ROOT, file),
   };
-  pages.set(key, page);
+  (data.hidden === true ? hiddenPages : pages).set(key, page);
   return page;
 }
 
@@ -296,7 +313,7 @@ function categoriesOf(tool) {
     .map((category) => {
       const listed = (category.data.notes || []).map((slug) => {
         const note = pages.get(`note:${tool}/${slug}`);
-        if (!note) warn(`${category.file}: lists a note “${slug}” that doesn't exist`);
+        if (!note && !hiddenPages.has(`note:${tool}/${slug}`)) warn(`${category.file}: lists a note “${slug}” that doesn't exist`);
         return note;
       });
       return { category, notes: listed.filter(Boolean) };
@@ -333,15 +350,16 @@ const assetHref = (from, file) => `${"../".repeat(depth(from.url))}assets/${file
 function resolve(ref, from) {
   const [target, hash = ""] = ref.split("#");
   let key = target;
-  if (!pages.has(key) && !key.includes(":")) key = target.includes("/") ? `note:${target}` : `note:${from.tool || "hydra"}/${target}`;
-  return { page: pages.get(key), hash };
+  if (!pages.has(key) && !hiddenPages.has(key) && !key.includes(":")) key = target.includes("/") ? `note:${target}` : `note:${from.tool || "hydra"}/${target}`;
+  return { page: pages.get(key), hidden: hiddenPages.get(key), hash };
 }
 
 function makeContext(page, { autorun = true } = {}) {
   let sketches = 0;
   return {
     link(ref, label) {
-      const { page: target, hash } = resolve(ref, page);
+      const { page: target, hidden, hash } = resolve(ref, page);
+      if (hidden) return label || hidden.titleHtml;
       if (!target) {
         warn(`${page.file || page.url}: broken garden link [[${ref}]]`);
         return label || escapeHtml(ref);
@@ -430,7 +448,8 @@ function trailOf(meetup) {
         const [title, summary = ""] = entry.slice(5).split("|").map((s) => s.trim());
         return { page: null, slide: { kind: "", titleHtml: escapeHtml(title), summaryHtml: mdInline(meetup, summary), code: "", href: "" } };
       }
-      const { page } = resolve(entry, meetup);
+      const { page, hidden } = resolve(entry, meetup);
+      if (hidden) return null;
       if (!page) {
         warn(`${meetup.file}: trail entry “${entry}” doesn't match a page`);
         return null;
@@ -578,7 +597,9 @@ function noteCard(page, note) {
   const thumb = `thumbs/${note.tool}-${note.slug}.jpg`;
   const img = fs.existsSync(path.join(ROOT, "assets", thumb))
     ? `<img src="${"../".repeat(depth(page.url))}assets/${thumb}" alt="" width="480" height="300" loading="lazy">`
-    : `<span class="g-noimg" aria-hidden="true"></span>`;
+    : note.firstStrudel
+      ? `<span class="g-noimg g-code" aria-hidden="true"><code>${escapeHtml(note.firstStrudel)}</code></span>`
+      : `<span class="g-noimg" aria-hidden="true"></span>`;
   const tags = [note.tool, note.data.category, ...browseTags(note.data, note.tool)];
   return `<li class="g-card g-${escapeHtml(note.data.category)}" data-tags="${escapeHtml(tags.join(" "))}" style="${scatter(note.key)}">
 <a href="${href(page, note)}">${img}<span class="g-title">${note.titleHtml}</span><span class="g-text">${mdInline(page, note.summary)}</span></a></li>`;
@@ -586,7 +607,8 @@ function noteCard(page, note) {
 
 // The garden contains examples. External resources live on the Links page.
 function gardenHtml(page) {
-  const categories = toolsWithNotes.flatMap((tool) => categoriesOf(tool).map(({ category }) => category));
+  // The topic buttons open under "visuals", so they list the Hydra categories only.
+  const categories = categoriesOf("hydra").map(({ category }) => category);
   const cards = noteOrder.map((note) => ({ key: note.key, html: noteCard(page, note) })).sort((a, b) => hash(a.key) - hash(b.key));
   return `${filtersHtml([["sound", "sound"], ["visuals", "visuals"], ["web-choreography", "web choreography"], ["open-source", "open source"]], {
     label: "Filter examples",
@@ -644,8 +666,8 @@ function renderNote(page) {
   const rules = pages.get(`category:${page.tool}/source`);
   const slide = meetup ? trailOf(meetup).findIndex((item) => item.page === page) + 1 : 0;
   const related = (d.related || []).map((ref) => {
-    const { page: target } = resolve(String(ref), page);
-    if (!target) warn(`${page.file}: related note “${ref}” doesn't exist`);
+    const { page: target, hidden } = resolve(String(ref), page);
+    if (!target && !hidden) warn(`${page.file}: related note “${ref}” doesn't exist`);
     return target;
   }).filter(Boolean);
   const i = noteOrder.indexOf(page);

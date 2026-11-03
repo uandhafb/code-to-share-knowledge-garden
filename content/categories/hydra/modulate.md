@@ -1,4 +1,5 @@
 ---
+hidden: true # next week, Meetup #2
 title: Modulate
 order: 5
 summary: A second image decides how much each pixel is transformed.
