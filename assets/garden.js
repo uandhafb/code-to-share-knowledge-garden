@@ -287,27 +287,28 @@
 
   const filters = document.querySelector(".filters");
   if (filters) {
-    const topics = filters.querySelector(".filter-topics");
+    // Each row of topics opens under its medium: hydra topics under "visuals", strudel topics under "sound".
+    const topicGroups = filters.querySelectorAll(".filter-topics");
     const primaryButtons = filters.querySelectorAll(":scope > button");
-    const visualsButton = filters.querySelector('button[data-filter="visuals"]');
     let primaryValue = "all";
     let topicValue = null;
     filters.addEventListener("click", (e) => {
       const button = e.target.closest("button[data-filter]");
       if (!button) return;
       const value = button.dataset.filter;
-      if (topics?.contains(button)) {
+      const group = button.closest(".filter-topics");
+      if (group) {
         topicValue = value;
-        topics.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+        group.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
       } else {
         primaryValue = value;
         topicValue = null;
         primaryButtons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
-        if (topics) {
-          topics.hidden = value !== "visuals";
-          visualsButton?.setAttribute("aria-expanded", String(!topics.hidden));
-          topics.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", "false"));
-        }
+        topicGroups.forEach((g) => {
+          g.hidden = g.dataset.for !== value;
+          filters.querySelector(`button[aria-controls="${g.id}"]`)?.setAttribute("aria-expanded", String(!g.hidden));
+          g.querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", "false"));
+        });
       }
       let visible = 0;
       document.querySelectorAll(".page [data-tags]").forEach((card) => {

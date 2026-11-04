@@ -576,20 +576,35 @@ const scatter = (s) => {
   return `--x:${((h % 13) - 6) / 8}rem;--y:${(((h >> 4) % 17) - 8) / 4}rem`;
 };
 
-function filtersHtml(tags, { label = "Filter", topics = [] } = {}) {
-  const buttons = (items) => items.map(([value, text]) => `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false"${value === "visuals" && topics.length ? ' aria-controls="hydra-topics" aria-expanded="false"' : ""}>${escapeHtml(text)}</button>`).join("\n");
+// Each tool supplies a medium. Its categories become a row of topic buttons that opens under that medium.
+const MEDIUM = { hydra: "visuals", strudel: "sound" };
+// Tools that are free and open source, so their notes also show under "open source".
+const OPEN_SOURCE_TOOLS = new Set(["hydra", "strudel"]);
+
+function filtersHtml(tags, { label = "Filter", topicGroups = [] } = {}) {
+  const groups = topicGroups.filter((group) => group.topics.length);
+  const buttons = (items) =>
+    items
+      .map(([value, text]) => {
+        const group = groups.find((g) => g.medium === value);
+        const controls = group ? ` aria-controls="${group.id}" aria-expanded="false"` : "";
+        return `<button type="button" data-filter="${escapeHtml(value)}" aria-pressed="false"${controls}>${escapeHtml(text)}</button>`;
+      })
+      .join("\n");
   return `<div class="filters" role="group" aria-label="${escapeHtml(label)}">
 <button type="button" data-filter="all" aria-pressed="true">all</button>
 ${buttons(tags)}
-${topics.length ? `<div class="filter-topics" id="hydra-topics" role="group" aria-label="hydra topics" hidden><span class="filter-label">hydra topics</span>${buttons(topics)}</div>` : ""}
+${groups
+  .map((g) => `<div class="filter-topics" id="${g.id}" data-for="${escapeHtml(g.medium)}" role="group" aria-label="${escapeHtml(g.label)}" hidden><span class="filter-label">${escapeHtml(g.label)}</span>${buttons(g.topics)}</div>`)
+  .join("\n")}
 </div>`;
 }
 
-// Tools supply a medium; other categories are explicitly tagged by the author.
+// Tools supply a medium (and "open-source"); other categories are explicitly tagged by the author.
 function browseTags(data, tool = data.tool) {
   const tags = Array.isArray(data.tags) ? [...data.tags] : [];
-  const medium = { hydra: "visuals", strudel: "sound" }[tool];
-  if (medium) tags.push(medium);
+  if (MEDIUM[tool]) tags.push(MEDIUM[tool]);
+  if (OPEN_SOURCE_TOOLS.has(tool)) tags.push("open-source");
   return [...new Set(tags)];
 }
 
@@ -607,12 +622,17 @@ function noteCard(page, note) {
 
 // The garden contains examples. External resources live on the Links page.
 function gardenHtml(page) {
-  // The topic buttons open under "visuals", so they list the Hydra categories only.
-  const categories = categoriesOf("hydra").map(({ category }) => category);
   const cards = noteOrder.map((note) => ({ key: note.key, html: noteCard(page, note) })).sort((a, b) => hash(a.key) - hash(b.key));
+  // Each tool's categories open under its medium: hydra topics under "visuals", strudel topics under "sound".
+  const topicGroups = Object.entries(MEDIUM).map(([tool, medium]) => ({
+    medium,
+    id: `${tool}-topics`,
+    label: `${tool} topics`,
+    topics: categoriesOf(tool).map(({ category }) => [category.slug, category.title.toLowerCase()]),
+  }));
   return `${filtersHtml([["sound", "sound"], ["visuals", "visuals"], ["web-choreography", "web choreography"], ["open-source", "open source"]], {
     label: "Filter examples",
-    topics: categories.map((category) => [category.slug, category.title.toLowerCase()]),
+    topicGroups,
   })}
 <ul class="garden">
 ${cards.map((c) => c.html).join("\n")}
