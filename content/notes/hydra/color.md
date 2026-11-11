@@ -3,7 +3,7 @@ title: color
 tool: hydra
 category: color
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: How much of each color channel to keep.
 related: [colorama, osc, mult]
 author: Uandha Fernandes Barbosa
@@ -48,4 +48,10 @@ A cyan square:
 
 ```hydra
 shape(4, 0.4).color(0, 1, 1).out()
+```
+
+Warm, orange clouds:
+
+```hydra
+noise(3).color(1, 0.5, 0).out()
 ```

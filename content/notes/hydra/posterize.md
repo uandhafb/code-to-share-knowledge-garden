@@ -1,10 +1,10 @@
 ---
-hidden: true # next week, Meetup #2
+hidden: true # not in a meetup yet
 title: posterize
 tool: hydra
 category: color
 level: beginner
-meetups: [2]
+meetups: []
 summary: Fewer color steps, like a printed poster.
 related: [pixelate, gradient, thresh]
 author: Uandha Fernandes Barbosa

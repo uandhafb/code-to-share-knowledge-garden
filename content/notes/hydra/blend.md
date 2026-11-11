@@ -3,7 +3,7 @@ title: blend
 tool: hydra
 category: blend
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: A crossfade between two images.
 related: [add, mult, chaining]
 author: Uandha Fernandes Barbosa
@@ -49,4 +49,10 @@ Blend three images. Each `blend(…, 0.5)` keeps half of what came before, so th
 
 ```hydra
 osc(20, 0.1, 1).blend(noise(3)).blend(voronoi(5)).out()
+```
+
+A crossfade that moves back and forth on its own (see [[arrow-functions]]):
+
+```hydra
+osc(10, 0.1, 1).blend(noise(3), () => Math.sin(time) * 0.5 + 0.5).out()
 ```

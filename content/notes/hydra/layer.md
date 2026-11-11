@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: layer
 tool: hydra
 category: blend
@@ -18,7 +17,7 @@ author: Uandha Fernandes Barbosa
 
 - **texture**: the image to put on top: a source, a chain, or an output like `o1`.
 
-You only see the first image where the top one is transparent. Most sources are not transparent, so cut the top image with [[luma]] or [[mask]].
+You only see the first image where the top one is transparent. Most sources are not transparent, so cut the top image with [[luma]]: its dark parts become transparent.
 
 ## Negative values
 
@@ -26,8 +25,10 @@ You only see the first image where the top one is transparent. Most sources are 
 
 ## Sketch
 
+A green hexagon on a red square:
+
 ```hydra
-noise(3).layer(osc(30, 0.1, 2).mask(shape(4, 0.4))).out()
+shape(4, 0.3, 0.01).color(1, 0, 0).layer(shape(6, 0.2, 0.01).color(0, 1, 0).luma()).out()
 ```
 
 ## Try this

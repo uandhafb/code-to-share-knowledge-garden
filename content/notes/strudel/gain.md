@@ -3,7 +3,7 @@ title: gain
 tool: strudel
 category: effects
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Sets the volume.
 related: [pan, room, degrade-by]
 author: Uandha Fernandes Barbosa

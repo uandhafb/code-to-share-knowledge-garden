@@ -1,10 +1,10 @@
 ---
-hidden: true # next week, Meetup #2
+hidden: true # not in a meetup yet
 title: shift
 tool: hydra
 category: color
 level: beginner
-meetups: [2]
+meetups: []
 summary: Pushes each color channel by a set amount.
 related: [color, hue, colorama]
 author: Uandha Fernandes Barbosa

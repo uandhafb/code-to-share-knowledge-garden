@@ -3,7 +3,7 @@ title: stack
 tool: strudel
 category: stacking
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Ties several patterns together into one.
 related: [dollar, layers, pan]
 author: Uandha Fernandes Barbosa

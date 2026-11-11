@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: saturate
 tool: hydra
 category: color
@@ -34,4 +33,10 @@ The same stripes in black and white:
 
 ```hydra
 osc(10, 0.1, 1).saturate(0).out()
+```
+
+Hyper-saturated:
+
+```hydra
+osc(10, 0.1, 1).saturate(5).out()
 ```

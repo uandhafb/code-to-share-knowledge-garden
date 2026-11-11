@@ -1,10 +1,10 @@
 ---
-hidden: true # next week, Meetup #2
+hidden: true # not in a meetup yet
 title: src
 tool: hydra
 category: source
 level: beginner
-meetups: [2]
+meetups: []
 summary: Starts from an image that already exists.
 related: [out, modulate, blend]
 author: Uandha Fernandes Barbosa

@@ -3,7 +3,7 @@ title: speed
 tool: strudel
 category: effects
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Changes the playback speed and pitch.
 related: [rev, delay, sample-numbers]
 author: Uandha Fernandes Barbosa

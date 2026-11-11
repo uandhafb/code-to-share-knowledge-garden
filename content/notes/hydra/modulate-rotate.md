@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: modulateRotate
 tool: hydra
 category: modulate
@@ -36,4 +35,10 @@ Compare it with [[rotate]], which turns every pixel by the same amount.
 
 ```hydra
 osc(20, 0.1, 1).modulateRotate(osc(3), 2).out()
+```
+
+Liquid rotation:
+
+```hydra
+osc(10, 0.1, 1).modulateRotate(noise(2), 2).out()
 ```

@@ -336,6 +336,9 @@ pre.code code { background: none; padding: 0; }
 .g-functions { background: #a6f2c6; }
 .g-effects { background: #ffd6a0; }
 .g-stacking { background: #c4d4ff; }
+.g-pitch { background: #ffb8d9; }
+.g-harmony { background: #b9ecf2; }
+.g-scales { background: #f0e68c; }
 
 /* A sound card has no picture, so it shows its code instead. */
 .g-code { box-sizing: border-box; aspect-ratio: auto; height: 6.5625rem; overflow: hidden; padding: 0.6rem 0.65rem; color: var(--code-ink); font-size: 0.75rem; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; }

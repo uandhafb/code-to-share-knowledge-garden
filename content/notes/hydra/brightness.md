@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: brightness
 tool: hydra
 category: color
@@ -32,8 +31,18 @@ osc(20, 0, 2).brightness(-0.3).out()
 
 ## Try this
 
-Brightness that rises and falls (see [[arrow-functions]]):
+Brightness that rises and falls (`time` is the number of seconds since Hydra started; see [[arrow-functions]]):
 
 ```hydra
 osc(20, 0, 2).brightness(() => Math.sin(time)).out()
+```
+
+A little brighter, then darker:
+
+```hydra
+osc(10, 0.1, 1).brightness(0.5).out()
+```
+
+```hydra
+osc(10, 0.1, 1).brightness(-0.3).out()
 ```

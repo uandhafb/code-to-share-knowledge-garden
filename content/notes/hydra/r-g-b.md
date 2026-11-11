@@ -1,10 +1,10 @@
 ---
-hidden: true # next week, Meetup #2
+hidden: true # not in a meetup yet
 title: r, g, b
 tool: hydra
 category: color
 level: beginner
-meetups: [2]
+meetups: []
 summary: Keeps only one color channel, in black and white.
 related: [color, layer, gradient]
 author: Uandha Fernandes Barbosa

@@ -3,7 +3,7 @@ title: pan
 tool: strudel
 category: effects
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Moves each sound between the left and right speakers.
 related: [jux, gain, stack]
 author: Uandha Fernandes Barbosa

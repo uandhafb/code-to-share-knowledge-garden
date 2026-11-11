@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: modulatePixelate
 tool: hydra
 category: modulate
@@ -34,4 +33,10 @@ osc(20, 0.1, 1).modulatePixelate(noise(3), 10).out()
 
 ```hydra
 shape(100, 0.4).modulatePixelate(osc(10, 0.1), 40, 5).out()
+```
+
+Sharp inside the square, big blocks outside:
+
+```hydra
+osc(10, 0.1, 1).modulatePixelate(shape(4, 0.4, 0.01), 50).out()
 ```

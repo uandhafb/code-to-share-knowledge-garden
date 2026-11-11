@@ -3,7 +3,7 @@ title: "$:"
 tool: strudel
 category: stacking
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: "Each line is its own pattern; `_$:` mutes one."
 related: [stack, layers, gain]
 author: Uandha Fernandes Barbosa

@@ -1,6 +1,6 @@
 ---
 title: More than one pattern
-order: 5
+order: 8
 summary: "Play several patterns at once with `$:` or `stack()`."
 notes: [dollar, stack]
 ---

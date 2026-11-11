@@ -3,7 +3,7 @@ title: invert
 tool: hydra
 category: color
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Flips the colors, like a photo negative.
 related: [contrast, thresh, luma]
 author: Uandha Fernandes Barbosa
@@ -35,4 +35,10 @@ Dark cells with bright edges become bright cells with dark edges:
 
 ```hydra
 voronoi(5, 0.3, 1).invert().out()
+```
+
+A white square on black becomes a black square on white:
+
+```hydra
+shape(4, 0.4).invert().out()
 ```

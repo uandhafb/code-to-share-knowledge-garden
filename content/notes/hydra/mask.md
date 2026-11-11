@@ -1,10 +1,10 @@
 ---
-hidden: true # next week, Meetup #2
+hidden: true # not in a meetup yet
 title: mask
 tool: hydra
 category: blend
 level: beginner
-meetups: [2]
+meetups: []
 summary: Shows the first image only where the second one is bright.
 related: [mult, layer, luma]
 author: Uandha Fernandes Barbosa

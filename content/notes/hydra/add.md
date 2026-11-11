@@ -3,7 +3,7 @@ title: add
 tool: hydra
 category: blend
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Two projectors on one wall: the result gets brighter.
 related: [blend, mult, modulate]
 author: Uandha Fernandes Barbosa
@@ -42,4 +42,10 @@ Cut a square out by subtracting it:
 
 ```hydra
 osc(20, 0.1, 1).add(shape(4, 0.4), -1).out()
+```
+
+A red triangle added on top of the stripes:
+
+```hydra
+osc(10, 0.1, 1).add(shape(3, 0.4, 0.01).color(1, 0, 0), 1).out()
 ```

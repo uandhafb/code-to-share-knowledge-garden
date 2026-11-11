@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: luma
 tool: hydra
 category: color

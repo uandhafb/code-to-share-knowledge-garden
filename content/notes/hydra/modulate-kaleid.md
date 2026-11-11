@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: modulateKaleid
 tool: hydra
 category: modulate
@@ -17,7 +16,7 @@ author: Uandha Fernandes Barbosa
 ## Parameters
 
 - **texture**: the image that bends the slices.
-- **nSides**: how many mirrored slices.
+- **nSides**: how many mirrored slices, like [[kaleid]]. The second image bends the kaleidoscope, so the mirrors melt.
 
 ## Negative values
 
@@ -33,4 +32,10 @@ shape(4, 0.4).modulateKaleid(osc(3), 4).out()
 
 ```hydra
 osc(20, 0.1, 1).modulateKaleid(noise(2), 6).out()
+```
+
+Many melting slices:
+
+```hydra
+osc(10, 0.1, 1).modulateKaleid(osc(11, 0.5, 0), 50).out()
 ```

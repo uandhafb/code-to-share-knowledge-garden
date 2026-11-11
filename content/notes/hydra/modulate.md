@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: modulate
 tool: hydra
 category: modulate
@@ -17,7 +16,9 @@ author: Uandha Fernandes Barbosa
 ## Parameters
 
 - **texture**: the image that controls the effect. Bright parts move pixels more.
-- **amount**: how strong the effect is.
+- **amount**: how strong the warping is (0.01 = subtle, 1 = wild).
+
+Geometry like `rotate(0.5)` moves every pixel by the same amount. Modulate lets the second image decide, pixel by pixel, which makes liquid, organic, glitchy distortions. It's like FM in a synth, but for images.
 
 ## Negative values
 
@@ -35,4 +36,16 @@ Stripes bent by other stripes:
 
 ```hydra
 osc(20, 0.1, 1).modulate(osc(5, 0.1), 0.5).out()
+```
+
+An organic warp:
+
+```hydra
+osc(10, 0.1, 1).modulate(noise(3), 0.1).out()
+```
+
+The second image doesn't move, so the warp is frozen:
+
+```hydra
+osc(10, 0.1, 1).modulate(osc(30, 0), 0.5).out()
 ```

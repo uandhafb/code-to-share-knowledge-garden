@@ -1,10 +1,10 @@
 ---
-hidden: true # next week, Meetup #2
+hidden: true # not in a meetup yet
 title: thresh
 tool: hydra
 category: color
 level: beginner
-meetups: [2]
+meetups: []
 summary: Turns the image into pure black and white.
 related: [luma, contrast, posterize]
 author: Uandha Fernandes Barbosa

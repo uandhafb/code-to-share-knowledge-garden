@@ -1,6 +1,6 @@
 ---
 title: Functions
-order: 3
+order: 6
 summary: "Change the whole pattern, after the dot."
 notes: [fast, slow, rev, jux, ply, degrade-by]
 ---

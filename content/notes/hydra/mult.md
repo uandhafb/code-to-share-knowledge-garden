@@ -3,7 +3,7 @@ title: mult
 tool: hydra
 category: blend
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Multiplies two images: darker, like a stencil.
 related: [add, blend, shape]
 author: Uandha Fernandes Barbosa
@@ -42,4 +42,10 @@ A colored second image tints the first:
 
 ```hydra
 osc(20, 0.1, 0).mult(osc(3, 0.1, 2)).out()
+```
+
+Stripes only where the clouds are:
+
+```hydra
+osc(10, 0.1, 1).mult(noise(3), 1).out()
 ```

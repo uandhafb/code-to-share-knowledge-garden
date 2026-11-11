@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: contrast
 tool: hydra
 category: color
@@ -34,4 +33,14 @@ Contrast that keeps changing (see [[arrow-functions]]):
 
 ```hydra
 osc(20).contrast(() => Math.sin(time) * 5).out()
+```
+
+High contrast, then washed out:
+
+```hydra
+osc(10, 0.1, 1).contrast(2).out()
+```
+
+```hydra
+osc(10, 0.1, 1).contrast(0.5).out()
 ```

@@ -11,8 +11,8 @@ notes: [osc, noise, voronoi, shape, gradient, solid, src]
 - Parameters are read from left to right, so you can only leave values out **from the end**. `osc(30, , 1)` is an error.
 - **Careful with empty spaces:** an empty space between two commas is not a default; it breaks the code. `osc(-10, , 0)` is an error. Type the value, even when it's the default: `osc(-10, 0, 0)`.
 - Negative numbers often flip, mirror, or reverse something. Each note shows what they do.
-- Functions that **combine two images** (`add`, `sub`, `blend` and `mult`) take the second image first: a source, a chain, or an output like `o1`. A number alone is not an image.
-- In the [Hydra editor](https://hydra.ojack.xyz), **Ctrl+Enter** runs the current line, **Alt+Enter** runs a block, **Ctrl+Shift+Enter** runs everything and `hush()` clears the screen. In this garden, **Ctrl/⌘ + Enter** runs the code box you're typing in.
+- Functions that **combine two images** (`add`, `sub`, `mult`, `diff`, `blend`, `layer`, and all the `modulate…` functions) take the second image first: a source, a chain, or an output like `o1`. A number alone is not an image.
+- In the [Hydra editor](https://hydra.ojack.xyz), **Ctrl+Enter** runs the current line, **Alt+Enter** (**Option+Enter** on a Mac) runs a block, **Ctrl+Shift+Enter** runs everything and `hush()` clears the screen. In this garden, **Ctrl/⌘ + Enter** runs the code box you're typing in.
 
 ## Try the defaults
 

@@ -1,5 +1,4 @@
 ---
-hidden: true # next week, Meetup #2
 title: modulateScale
 tool: hydra
 category: modulate
@@ -34,4 +33,10 @@ shape(4, 0.4).modulateScale(noise(3), 1).out()
 
 ```hydra
 osc(20, 0.1, 1).modulateScale(osc(4, 0.1), 2).out()
+```
+
+Zoomed only inside the square:
+
+```hydra
+osc(10, 0.1, 1).modulateScale(shape(4, 0.3, 0.01), 3).out()
 ```

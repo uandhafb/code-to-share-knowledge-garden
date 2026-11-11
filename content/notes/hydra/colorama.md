@@ -3,7 +3,7 @@ title: colorama
 tool: hydra
 category: color
 level: beginner
-meetups: [1]
+meetups: [1, 2]
 summary: Shifts every color around the color wheel.
 related: [color, osc, voronoi]
 author: Uandha Fernandes Barbosa
